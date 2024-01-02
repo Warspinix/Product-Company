@@ -1,0 +1,572 @@
+CREATE TABLE company (
+	branch_id INT PRIMARY KEY,
+	b_name varchar(25) NOT NULL,
+	b_address varchar(40) NOT NULL,
+	b_city varchar(15) NOT NULL,
+	b_code varchar(11) NOT NULL,
+	b_state varchar(20) NOT NULL,
+	b_country varchar(15) NOT NULL
+);
+
+141 - Design
+142 - Production
+143 - Factory
+144 - Warehouse
+145 - Store
+146 - Operations
+147 - Engineering
+148 - Showroom
+149 - Service Centre
+
+DESC company;
+
+INSERT INTO company VALUES ('141001', 'Apple Inc. Design', '121, XXX Street, YYY Nagar', 'Chennai', '600062', 'Tamil Nadu', 'India');
+INSERT INTO company VALUES ('142002', 'Apple Inc. Production', '223, XYZ Street, MMM Avenue', 'Miami', '33101', 'Florida', 'USA');
+INSERT INTO company VALUES ('148003', 'Apple Inc. Showroom', '96, AAA Street, MOL Nagar', 'Mumbai', '400056', 'Maharashtra', 'India');
+INSERT INTO company VALUES ('143004', 'Apple Inc. Factory', '88, OMG Street, REK Nagar', 'Hyderabad', '500005', 'Telangana', 'India');
+INSERT INTO company VALUES ('144005', 'Apple Inc. Warehouse', '127, LEO Street, INN Avenue', 'Brisbane', '4007', 'Queensland', 'Australia');
+INSERT INTO company VALUES ('149006', 'Apple Inc. Service Centre', '987, PRO Street, PER Nagar', 'Kolkata', '700003', 'West Bengal', 'India');
+INSERT INTO company VALUES ('147008', 'Apple Inc. Engineering', '37, YYY Street, YAK Avenue', 'Bloemfontein', '9300', 'Free State', 'South Africa');
+INSERT INTO company VALUES ('148007', 'Apple Inc. Showroom', '345, RRR Street, JUJ Town', 'Resistencia', 'H3500', 'Chaco', 'Argentina');
+INSERT INTO company VALUES ('146009', 'Apple Inc. Operations', '21, ABC Street, LOP Nagar', 'Madurai', '625007', 'Tamil Nadu', 'India');
+INSERT INTO company VALUES ('149010', 'Apple Inc. Service Centre', '23, DEF Street, SSS Avenue', 'Rennes', '35238', 'Brittany', 'France');
+INSERT INTO company VALUES ('143011', 'Apple Inc. Factory', '63, RFG Street, CCC Town', 'Toronto', '33101', 'Ontario', 'Canada');
+INSERT INTO company VALUES (145001, 'Apple Inc. Store', '343, JOB Street, STV Avenue', 'New York City', '10038', 'New York', 'USA');
+
+///
+
+(140000, 'Apple Park', '10600 N Tantau Ave', 'Cupertino', '95014', 'California', 'USA');
+
+///
+
+INSERT INTO company VALUES 
+(141002, 'Apple Inc. Design', '55, Avenue des Champs-Élysées', 'Paris', '75008', 'Île-de-France', 'France'),
+(141003, 'Apple Inc. Design', 'Tokyo Midtown, 9-7-1 Akasaka', 'Minato City', '107-0052', 'Tokyo', 'Japan'),
+(142002, 'Apple Inc. Production', 'Bartın Yolu Cd. No: 101', 'Istanbul', '34520', 'Istanbul', 'Turkey'),
+(142003, 'Apple Inc. Production', 'No. 3, Siam Cement Road', 'Bangkok', '10330', 'Bangkok', 'Thailand'),
+(143001, 'Apple Inc. Factory', '23 Kukatpally Housing Board Colony', 'Hyderabad', '500005', 'Telangana', 'India'),
+(143002, 'Apple Inc. Factory', 'Rua Olimpíadas, 205 - 4 andar', 'Sao Paulo', '04551-000', 'Sao Paulo', 'Brazil'),
+(143003, 'Apple Inc. Factory', '1215 Monte Lesage', 'Laval', 'H7N 6E3', 'Quebec', 'Canada'),
+(144001, 'Apple Inc. Warehouse', '145, Anna Salai', 'Chennai', '625007', 'Tamil Nadu', 'India'),
+(144002, 'Apple Inc. Warehouse', 'Kasumigaseki 1-chome', 'Tokyo', '100-8914', 'Tokyo', 'Japan'),
+(144003, 'Apple Inc. Warehouse', 'Kallang Ave, #07-01 Aperia', 'Singapore', '339509', 'Singapore', 'Singapore'),
+(145001, 'Apple Inc. Store', '221, Regent Street', 'London', 'W1B 4JE', 'England', 'United Kingdom'),
+(145002, 'Apple Inc. Store', 'Platz am Rothenbaum 1', 'Hamburg', '20146', 'Hamburg', 'Germany'),
+(145003, 'Apple Inc. Store', 'Roppongi Hills Mori Tower', 'Tokyo', '106-6140', 'Tokyo', 'Japan'),
+(146001, 'Apple Inc. Operations', '123 Church Street', 'Bloemfontein', '9300', 'Free State', 'South Africa'),
+(146002, 'Apple Inc. Operations', 'Calle del Conde de Peñalver, 38', 'Madrid', '28006', 'Madrid', 'Spain'),
+(146003, 'Apple Inc. Operations', 'Collins Street, Docklands', 'Melbourne', '3008', 'Victoria', 'Australia'),
+(147001, 'Apple Inc. Engineering', 'Amphitheatre Parkway', 'Mountain View', '94043', 'California', 'USA'),
+(147002, 'Apple Inc. Engineering', '11th Floor, Tower C, Building No.8', 'Beijing', '100080', 'Beijing', 'China'),
+(147003, 'Apple Inc. Engineering', '1155 Robert Bourassa Blvd', 'Montreal', 'H3B 3A7', 'Quebec', 'Canada'),
+(148001, 'Apple Inc. Showroom', 'High Street Phoenix, Lower Parel', 'Mumbai', '400056', 'Maharashtra', 'India'),
+(148002, 'Apple Inc. Showroom', 'Via Santa Margherita', 'Milan', '20121', 'Lombardy', 'Italy'),
+(148003, 'Apple Inc. Showroom', 'Paragon, 290 Orchard Rd', 'Singapore', '238859', 'Singapore', 'Singapore'),
+(149001, 'Apple Inc. Service Centre', '1 Esplanade East', 'Kolkata', '700001', 'West Bengal', 'India'),
+(149002, 'Apple Inc. Service Centre', 'Damrak 1-5', 'Amsterdam', '1012 LH', 'North Holland', 'Netherlands'),
+(149003, 'Apple Inc. Service Centre', '15 Av. Des Grandes Ecoles', 'Rennes', '35000', 'Brittany', 'France');
+
+----------------------------------------------
+
+CREATE TABLE spares (
+	spare_id INT PRIMARY KEY AUTO_INCREMENT,
+	part_name VARCHAR(50) NOT NULL
+);
+
+INSERT INTO spares (part_name) VALUES
+('iPhone 15 Display'),
+('iPhone 15 Plus Display'),
+('iPhone 15 Pro Display'),
+('iPhone 15 Pro Max Display'),
+('iPad Pro 11 2022 Display'),
+('iPad Pro 12.9 2022 Display'),
+('iPad Air Display'),
+('iPad Mini 6 Display'),
+('Apple Watch Series 9 Display'),
+('IMX-803'),
+('3 nm Chip'),
+('5 nm Chip');
+
+----------------------------------------------
+
+CREATE TABLE branch_spares (
+	branch_id INT NOT NULL,
+	spare_id INT NOT NULL,
+	quantity INT NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE suppliers (
+	supplier_id INT PRIMARY KEY AUTO_INCREMENT,
+	supplier_name VARCHAR(60) NOT NULL
+);
+
+file:///C:/Users/Yuvi/Desktop/Apple-Supplier-List.html
+
+INSERT INTO suppliers (supplier_name) VALUES
+('3M'),
+('AGC Incorporated'),
+('Amkor Technology Incorporated'),
+('Analog Devices Incorporated'),
+('BOE Technology Group Company Limited'),
+('Broadcom Limited'),
+('China Circuit Technology (Shantou) Corporation'),
+('Compal Electronics Incorporated'),
+('Corning Incorporated'),
+('Delta Electronics Incorporated'),
+('Diodes Incorporated'),
+('Flex Limited'),
+('Fujikura Limited'),
+('GigaDevice Semiconductor Incorporated'),
+('Global Lighting Technologies'),
+('GoerTek Incorporated'),
+('Hi-P International Limited'),
+('Hitachi Limited'),
+('IDEMIA Group'),
+('Infineon Technologies AG'),
+('Intel Corporation'),
+('Japan Display Incorporated'),
+('JCET Group Company Limited'),
+('Keiwa Inc.'),
+('Knowles Corporation'),
+('Kyocera Corporation'),
+('Lattice Semiconductor Corp.'),
+('Lens Technology Company Limited'),
+('LG Chem Limited'),
+('LG Display Company Limited'),
+('LG Innotek Company Limited'),
+('Lite-On Technology Corporation'),
+('Luen Fung Group'),
+('Marian Incorporated'),
+('MicroChip Technology Incorporated'),
+('Micron Technology Incorporated'),
+('Murata Manufacturing Company Limited'),
+('Nidec Corporation'),
+('Nippon Light Metal Holdings Company, Limited'),
+('Nippon Steel and Sumitomo Metal Corporation'),
+('Nissha Company Limited'),
+('NOK Corporation'),
+('Novatek Microelectronics Corp.'),
+('ON Semiconductor Corporation'),
+('Panasonic Corporation'),
+('Parade Technologies Limited'),
+('Pegatron Corporation'),
+('Phone In Mag-Electronics Company Limited'),
+('POSCO International'),
+('Power Integrations Incorporated'),
+('Primax Electronics Limited'),
+('Quadrant Solutions'),
+('QUALCOMM Incorporated'),
+('Quanta Computer Incorporated'),
+('Renesas Electronics Corporation'),
+('SABIC - Saudi Arabian Oil Company'),
+('Samsung Electro-Mechanics Company Limited'),
+('Samsung Electronics Company Limited'),
+('Samsung SDI Company Limited'),
+('Seoul Semiconductor Company Limited'),
+('Sharp Corporation'),
+('Skyworks Solutions Incorporated'),
+('Sony Corporation'),
+('Sumida Corporation'),
+('Taiwan Semiconductor Manufacturing Company Limited'),
+('Taiwan Surface Mounting Technology Corporation'),
+('TDK Corporation'),
+('Texas Instruments Incorporated'),
+('TPK Holding Company Limited'),
+('Tripod Technology Corporation'),
+('Unimicron Technology Corporation'),
+('Unisteel Technology Limited (SFS Group)'),
+('United Test and Assembly Center Limited'),
+('VARTA Microbatter GmbH'),
+('Viavi Solutions Incorporated'),
+('Western Digital Corporation'),
+('Winox Holdings Limited'),
+('Wistron Corporation'),
+('Yageo Corporation'),
+('Young Poong Corporation'),
+('Zhen Ding Technology Holding Limited'),
+('Zhuhai CosMX Battery Co., Ltd');
+
+----------------------------------------------
+
+CREATE TABLE spares_suppliers (
+	spare_id INT NOT NULL,
+	supplier_id INT NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE orders (
+	order_id INT PRIMARY KEY AUTO_INCREMENT,
+	order_date DATE NOT NULL,
+	spare_id INT NOT NULL,
+	quantity INT NOT NULL,
+	supplier_id INT NOT NULL,
+	branch_id INT NOT NULL,
+	status VARCHAR(10) DEFAULT 'INCOMPLETE' NOT NULL
+);
+
+INSERT INTO orders (
+	
+
+----------------------------------------------
+
+CREATE TABLE supplies (
+	supply_id INT PRIMARY KEY AUTO_INCREMENT,
+	order_id INT NOT NULL,
+	supply_date DATE NOT NULL,
+	quantity INT NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE project (
+	project_id INT PRIMARY KEY,
+	project_name VARCHAR(50) NOT NULL,
+	start_date DATE NOT NULL,
+	deadline DATE NOT NULL,
+	end_date DATE,
+	allocated_budget INT NOT NULL,
+	status VARCHAR(20) DEFAULT 'BEGUN' NOT NULL
+);
+
+121 - iPhone
+122 - iPad
+123 - MacBook
+124 - Apple Watch
+125 - HomePod
+126 - AirPods
+127 - Mac
+128 - Apple Pencil
+129 - Other accessories (cables, adapters, etc...)
+
+INSERT INTO project (project_id, project_name, start_date, deadline, end_date, allocated_budget) VALUES
+(128001, 'Apple Pencil Production', '2022-12-20', '2023-06-30', '2023-05-07', 100000),
+(123001, 'MacBook Pro Manufacturing', '2022-11-10', '2023-5-31', '2023-05-14', 1100000),
+(127001, 'iMac Pro Assembly', '2022-09-15', '2023-3-30', '2023-03-06', 1300000),
+(126001, 'AirPods Max Manufacturing', '2022-08-05', '2023-2-28', '2023-01-09', 700000),
+(123002, 'MacBook Air Production', '2022-07-20', '2023-1-31', '2023-01-20', 950000),
+(130001, 'Apple TV HD Assembly', '2022-06-10', '2022-12-31', '2022-11-27', 300000),
+(125001, 'HomePod Mini Manufacturing', '2022-05-01', '2022-11-15', '2022-10-01', 250000),
+(127002, 'Mac mini Assembly', '2022-04-15', '2022-10-30', '2022-10-26', 500000),
+(121001, 'iPhone 14 Production', '2022-03-25', '2022-10-15', '2022-08-01', 850000),
+(122001, 'iPad Air Manufacturing', '2022-02-15', '2022-08-31', '2022-07-22', 400000),
+(124001, 'Apple Watch Series 9 Production', '2022-01-10', '2022-07-31',  '2022-04-10', 550000),
+(123003, 'MacBook Pro 16-inch Manufacturing', '2021-12-01', '2022-06-15', '2022-04-24', 1200000),
+(126003, 'AirPods Pro Max Assembly', '2021-11-15', '2022-05-30', '2022-02-04', 750000),
+(127003, 'Mac Pro 2023 Edition Production', '2021-10-05', '2022-04-28', '2022-03-14', 1600000),
+(122002, 'iPad Pro 12.9-inch Assembly', '2021-08-10', '2022-02-15', '2021-12-24', 1100000),
+(130002, 'Apple TV+ Original Content Production', '2021-07-05', '2021-12-30', '2021-12-19', 2000000),
+(123004, 'MacBook Air 2023 Edition Manufacturing', '2021-06-15', '2021-12-31', '2021-11-06', 1000000),
+(121002, 'iPhone 13 Production', '2021-05-01', '2021-11-15', '2021-10-23', 900000),
+(125004, 'iPod Touch 8th Generation Assembly', '2021-04-10', '2021-10-30', '2021-06-29', 400000),
+(121004, 'iPhone 16 Production', '2023-12-30', '2024-6-29', null, 1000000),
+(122005, 'iPad Pro Manufacturing', '2023-11-15', '2024-5-30', null, 800000),
+(123006, 'MacBook Air Assembly', '2023-10-01', '2024-4-15', null, 1200000),
+(124003, 'Apple Watch Series 8 Production', '2023-09-20', '2024-03-31', null, 500000),
+(127004, 'iMac Manufacturing', '2023-08-10', '2024-02-28', null, 900000),
+(126004, 'AirPods Pro Assembly', '2023-07-05', '2024-01-15', null, 300000),
+(127007, 'Mac mini Production', '2023-06-15', '2023-12-31', null, 700000),
+(130003, 'Apple TV 4K Manufacturing', '2023-05-01', '2023-11-15', null, 400000),
+(125005, 'HomePod Assembly', '2023-04-10', '2023-10-30', null, 200000),
+(127008, 'Mac Pro Production', '2023-03-25', '2023-10-15', null, 1500000),
+(122006, 'iPad mini Assembly', '2023-01-05', '2023-07-15', null, 350000);
+
+----------------------------------------------
+
+CREATE TABLE project_branch (
+	project_id INT NOT NULL,
+	branch_id INT NOT NULL,
+	start_date DATE NOT NULL
+);	
+
+----------------------------------------------
+
+CREATE TABLE project_spares (
+	project_id INT NOT NULL,
+	spare_id INT NOT NULL,
+	quantity INT NOT NULL,
+);	
+
+----------------------------------------------
+
+CREATE TABLE employee (
+	employee_id VARCHAR(8) PRIMARY KEY,
+	password VARCHAR(20) NOT NULL,
+	fname VARCHAR(30) NOT NULL,
+	lname VARCHAR(30) NOT NULL,
+	position VARCHAR(15) NOT NULL,
+	phone_no VARCHAR(15) NOT NULL,
+	email_id VARCHAR(50) NOT NULL,
+	gender VARCHAR(1) NOT NULL,
+	dob DATE NOT NULL,
+	join_date DATE NOT NULL,
+	salary INT NOT NULL,
+	branch_id INT NOT NULL
+);
+
+ALTER TABLE employee
+ADD FOREIGN KEY(branch_id) 
+REFERENCES company(branch_id);
+
+https://www.apple.com/careers/pdf/HBR_How_Apple_Is_Organized_For_Innovation-4.pdf
+
+Actual Positions: 
+
+1) ICT2
+2) ICT3
+3) ICT4, 
+4) ICT5, 
+5) ICT6, 
+6) CTO
+7) Director
+8) CFO
+9) CEO
+
+Our Implementation:
+
+1) Regular (ICT2, ICT3, ICT4)
+2) Manager (ICT5, ICT6)
+3) Higher Officials - CEO, Admin, etc.
+
+Roles: Design, Hardware Engineering, Hardware Technologies, Software, Services, Machine Learning and AI, Marketing, Operations, Sales, Retail, People, Finance, Legal, (Environment, Policy & Social), Corporate Development
+
+131 - Design
+132 - Production
+133 - Finance
+134 - Storage
+135 - Marketing
+136 - Testing
+137 - Software
+138 - Sales and Retail
+139 - Service
+
+INSERT INTO employee VALUES 
+('13100001', 'ZR3yT9pLmHsFvXw', 'Eva', 'Anderson', 'Regular', '9876543210', '13100001.eva@apple.com', 'F', '1990-12-22', '2023-01-31', 110000, 141001),
+('13100002', 'd8G2nKcR5o1JpQx', 'Liam', 'Thompson', 'Manager', '8765432109', '13100002.liam@apple.com', 'M', '1980-05-30', '2004-02-29', 200000, 141001),
+('13100003', 'Wq4zT2rG7eV1xHs', 'Zara', 'Harrison', 'Director', '7654321098', '13100003.zara@apple.com', 'F', '1968-09-20', '1995-03-30', 300000, 141001),
+('13200001', 'P5mC8hR7sX3nB9g', 'Max', 'Miller', 'Regular', '5551234567', '13200001.max@apple.com', 'M', '1988-08-19', '2023-04-28', 30000, 142002),
+('13200002', 'fL2xP6zV9sA8qJw', 'Sophie', 'Roberts', 'Manager', '5559876543', '13200002.sophie@apple.com', 'F', '1981-07-01', '2006-05-01', 44000, 142002),
+('13200003', 'K9cP3mX6nQ1vF4d', 'Leo', 'Turner', 'Director', '5552345678', '13200003.leo@apple.com', 'M', '1964-04-04', '1990-06-02', 62000, 142002),
+('13300001', 'H8sY5q2mJ3cV6wZ', 'Ava', 'Bennett', 'Regular', '6543210987', '13300001.ava@apple.com', 'F', '1989-03-14', '2023-07-03', 110000, 146009),
+('13300002', 'G4bR1y6vP7cQ2xH', 'Jackson', 'Evans', 'Manager', '5432109876', '13300002.jackson@apple.com', 'M', '1979-03-15', '2001-06-04', 180000, 146009),
+('13300003', '6sL7aYpF9jN2vXc', 'Olivia', 'Dixon', 'Director', '4321098765', '13300003.olivia@apple.com', 'F', '1968-02-09', '1994-05-05', 300000, 146009),
+('13400001', 'sF9dN4vQ8bR2yLc', 'Mason', 'Hill', 'Regular', '411234567', '13400001.mason@apple.com', 'M', '1984-06-02', '2023-09-11', 10000, 144005),
+('13400002', '3tL7gX6mQ1iR8pK', 'Emily', 'Clark', 'Manager', '422345678', '13400002.emily@apple.com', 'F', '1982-05-07', '2007-10-20', 16000, 144005),
+('13400003', 'J5sW9c8mV2xP4zH', 'Caleb', 'Ward', 'Director', '433456789', '13400003.caleb@apple.com', 'M', '1970-10-11', '1996-11-19', 25000, 144005),
+('13500001', 'Q7bF1n2dR6vZ9sC', 'Grace', 'Fisher', 'Regular', '5558765432', '13500001.grace@apple.com', 'F', '1991-11-30', '2023-12-11', 20000, 146009),
+('13500002', 'xN3gY8sB1rV4cP2', 'Henry', 'Wells', 'Manager', '5559876541', '13500002.henry@apple.com', 'M', '1976-08-26', '2004-02-11', 40000, 146009),
+('13500003', 'kT6sF4rG7pV9dL1', 'Chloe', 'Williams', 'Director', '5552345670', '13500003.chloe@apple.com', 'F', '1960-09-10', '1983-02-08', 60000, 146009),
+('13600001', 'V8bS2pQ3xH6gR9f', 'Ethan', 'Carter', 'Regular', '3210987654', '13600001.ethan@apple.com', 'M', '1984-06-24', '2023-03-08', 90000, 146009),
+('13600002', 'L5nC1dJ7sF2zV8p', 'Ruby', 'Parker', 'Manager', '2109876543', '13600002.ruby@apple.com', 'F', '1981-03-22', '2005-05-31', 200000, 146009),
+('13600003', 'A9vP2mH6sT1qR3x', 'Owen', 'Mitchell', 'Director', '1098765432', '13600003.owen@apple.com', 'M', '1972-09-20', '1998-06-18', 400000, 146009),
+('13700001', 'X4nB6wP7sK3zL8q', 'Lily', 'Brown', 'Regular', '721234567', '13700001.lily@apple.com', 'F', '1990-04-29', '2023-09-17', 120000, 147008),
+('13700002', 'W2pF9qH7vX5rL3d', 'Logan', 'Hayes', 'Manager', '832345678', '13700002.logan@apple.com', 'M', '1980-12-21', '2008-07-24', 320000, 147008),
+('13700003', 'Z6sF7b1vR9mP4gC', 'Isabella', 'Reed', 'Director', '763456789', '13700003.isabella@apple.com', 'F', '1971-10-31', '1995-04-04', 500000, 147008),
+('13800001', 'iN3xV6s8gP1qR7w', 'Samuel', 'Woods', 'Regular', '91112345678', '13800001.samuel@apple.com', 'M', '1988-08-13', '2023-06-20', 35000, 148003),
+('13800002', 'cS5pL9mQ2dR6vX', 'Aria', 'Russell', 'Manager', '91112345679', '13800002.aria@apple.com', 'F', '1970-06-06', '2004-10-24', 50000, 148003),
+('13800003', 'H7sV1pG4qR3mL2w', 'Noah', 'Hudson', 'Director', '91112345680', '13800003.noah@apple.com', 'M', '1965-04-21', '1989-11-23', 70000, 148003),
+('13900001', 'zT8yW6sN4dJ1mRc', 'Charlotte', 'Fleming', 'Regular', '612345678', '13900001.charlotte@apple.com', 'F', '1985-01-22', '2023-12-06', 24000, 149006),
+('13900002', 'V2sF5bP8cQ7rL3x', 'Elijah', 'Porter', 'Manager', '723456789', '13900002.elijah@apple.com', 'M', '1974-01-01', '2011-02-28', 45000, 149006),
+('13900003', 'K9mP4vH2sL7qR5c', 'Harper', 'Cooper', 'Director', '987654321', '13900003.harper@apple.com', 'M', '1966-07-07', '1988-03-03', 63000, 149006);
+
+----------------------------------------------
+
+CREATE TABLE employee_speciality (
+	employee_id INT NOT NULL,
+	speciality VARCHAR(30) NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE employee_project (
+	employee_id INT NOT NULL,
+	project_id INT NOT NULL,
+	start_date DATE NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE customer (
+	phone_no VARCHAR(15) PRIMARY KEY,
+	fname VARCHAR(30) NOT NULL,
+	lname VARCHAR(30) NOT NULL,
+	email_id VARCHAR(255) NOT NULL
+);
+
+INSERT INTO Customer (phone_no, fname, lname, email_id) VALUES 
+('1234567890', 'Satoshi', 'Tanaka', 'satoshi.tanaka@gmail.com'), 
+('9876543210', 'Aya', 'Yamamoto', 'aya.yamamoto@gmail.com'), 
+('5551234567', 'Liam', 'Johnson', 'liam.johnson@gmail.com'), 
+('1112223333', 'Sophie', 'Dupont', 'sophie.dupont@gmail.com'), 
+('9998887777', 'Ethan', 'Brown', 'ethan.brown@gmail.com'), 
+('4445556666', 'Isabella', 'Rossi', 'isabella.rossi@gmail.com'), 
+('6667778888', 'Mateo', 'Lopez', 'mateo.lopez@gmail.com'), 
+('7778889999', 'Olivia', 'Andersen', 'olivia.andersen@gmail.com'), 
+('8889990000', 'Sebastian', 'Blanco', 'sebastian.blanco@gmail.com'), 
+('2223334444', 'Luna', 'Garcia', 'luna.garcia@gmail.com'), 
+('3334445555', 'Aiden', 'Davis', 'aiden.davis@gmail.com'), 
+('5554443333', 'Aria', 'Martin', 'aria.martin@gmail.com'), 
+('1239874560', 'Akira', 'Kobayashi', 'akira.kobayashi@gmail.com'), 
+('7896541230', 'Yuki', 'Sato', 'yuki.sato@gmail.com'),
+('6549873210', 'Yusuf', 'Çelik', 'yusuf.celik@gmail.com'), 
+('4567891230', 'Sofia', 'Vasquez', 'sofia.vasquez@gmail.com'), 
+('3216549870', 'Lucas', 'Silva', 'lucas.silva@gmail.com'), 
+('9873216540', 'Zara', 'Khan', 'zara.khan@gmail.com'),
+('6543219870', 'Hiroshi', 'Nakamura', 'hiroshi.nakamura@gmail.com'), 
+('7890123456', 'Yasmine', 'Ali', 'yasmine.ali@gmail.com'), 
+('3456789012', 'Hugo', 'Müller', 'hugo.muller@gmail.com'), 
+('9012345678', 'Layla', 'Wang', 'layla.wang@gmail.com'),
+('2345678901', 'Ravi', 'Patel', 'ravi.patel@gmail.com'), 
+('8901234567', 'Ella', 'Larsson', 'ella.larsson@gmail.com'), 
+('5678901234', 'Rahul', 'Choi', 'rahul.choi@gmail.com');
+
+----------------------------------------------
+
+CREATE TABLE product (
+	product_id INT PRIMARY KEY,
+	product_name VARCHAR(50) NOT NULL,
+	specifications VARCHAR(255) NOT NULL,
+	warranty VARCHAR(20) NOT NULL
+);
+
+121 - iPhone
+122 - iPad
+123 - MacBook
+124 - Apple Watch
+125 - HomePod
+126 - AirPods
+127 - Mac
+128 - Apple Pencil
+129 - Other accessories (cables, adapters, etc...)
+
+INSERT INTO product (product_id, product_name, specifications, warranty) VALUES 
+('111001', 'iPhone 15', 'A17 Bionic chip, upgraded cameras, potential design changes', '6 months'),
+('111002', 'iPhone 14 Pro', 'Triple-lens camera system, LiDAR scanner, ProMotion displays', '1 year'),
+('111003', 'iPhone 14', 'A16 Bionic chip, improved cameras, longer battery life', '1.5 years'),
+('111004', 'iPhone SE (3rd generation)', 'A15 Bionic chip, familiar design', '2 years'),
+('112001', 'iPad mini (7th generation)', 'A15 Bionic chip, Liquid Retina display, Apple Pencil support', '6 months'),
+('112002', 'iPad Air (5th generation)', 'M1 chip, 10.9-inch Liquid Retina display, Touch ID in power button', '1 year'),
+('113001', 'M2 Pro MacBook Pro', 'Apple\'s latest chips, Liquid Retina XDR displays, ProMotion technology', '1.5 years'),
+('113002', 'M2 MacBook Air', 'Sleek and lightweight laptop with M2 chip, longer battery life', '2 years'),
+('113003', 'Mac Studio', 'Desktop computer with up to M1 Ultra chip, ideal for creative professionals', '1 year'),
+('113004', '24-inch iMac', 'All-in-one computer with vibrant 4.5K Retina display, M1 chip', '1.5 years'),
+('114001', 'Apple Watch Series 9', 'ECG, Blood Oxygen app, advanced workout metrics, larger display', '2 years'),
+('114002', 'Apple Watch Ultra', 'Rugged smartwatch for extreme activities, titanium case, long battery life, built-in compass', '1 year'),
+('114003', 'Apple Watch SE (2nd generation)', 'Affordable smartwatch with heart rate monitoring, activity tracking, notifications', '6 months'),
+('115001', 'HomePod (2nd generation)', 'Immersive sound, Siri voice control, multi-room audio with AirPlay 2', '1.5 years'),
+('116001', 'AirPods (3rd generation)', 'Spatial Audio, improved sound quality, shorter stems', '2 years'),
+('116002', 'AirPods Pro (2nd generation)', 'Active noise cancellation, transparency mode, improved sound with H2 chip', '1 year'),
+('118001', 'Apple Pencil', 'Stylus for compatible iPads, Launched in 2015, charges via Lightning', '6 months'),
+('118002', 'Apple Pencil', 'Stylus for compatible iPads, Launched in 2018, charges wirelessly, magnetic attachment', '1 year'),
+('119002', 'USB-C to Lightning Cable (1m)', 'Charges and syncs iPhones, iPads, AirPods. 2m length also available.', '6 months'),
+('119003', 'Thunderbolt 4 Pro Cable (1m)', 'Connects MacBooks & iPads to displays & docking stations. Supports high-speed data transfer and charging. Longer lengths available.', '1 year'),
+('119004', 'USB-C Charge Cable (2m)', 'Charges MacBooks with USB-C ports. Available in various lengths.', '1 year'),
+('119005', 'Lightning to USB Cable (2m)', 'Connects iPhones and iPads to Macs and PCs for charging and data transfer. 1m length also available.', '1 year'),
+('119006', 'Apple Watch Magnetic Charging Cable (1m)', 'Charges Apple Watch models. Available in multiple colors.', '1 year'),
+('119007', 'USB-C to USB Adapter', 'Connects USB peripherals to MacBooks with only USB-C ports.', '1 year'),
+('119008', 'Lightning Digital AV Adapter', 'Outputs iPhone/iPad screen audio and video to HDMI TVs/displays.', '1 year'),
+('119009', 'Thunderbolt 3 (USB-C) to Thunderbolt 2 Adapter', 'Connects newer MacBooks to Thunderbolt 2 devices.', '1 year'),
+('119010', 'Apple 30-pin to VGA Adapter', 'Connects older iPhones/iPads to VGA projectors/displays.', '1 year'),
+('119011', 'USB-C to MagSafe 3 Cable (2m)', 'Charges MacBooks with MagSafe ports. Fast charging and secure magnetic connection.', '1 year');
+
+----------------------------------------------
+
+CREATE TABLE product_branch (
+	product_id INT NOT NULL,
+	branch_id INT NOT NULL,
+	quantity INT NOT NULL,
+	manufacture_date DATE NOT NULL 
+);
+
+----------------------------------------------
+
+CREATE TABLE product_country_prices (
+	product_id INT NOT NULL,
+	country VARCHAR(15) NOT NULL,
+	price INT NOT NULL,
+	currency VARCHAR(10) NOT NULL
+);
+	
+----------------------------------------------
+
+CREATE TABLE warehouse (
+	branch_id INT NOT NULL,
+	product_id INT NOT NULL,
+	product_stock INT NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE showroom (
+	branch_id INT NOT NULL,
+	product_id INT NOT NULL,
+	product_stock INT NOT NULL,
+	warehouse_id INT NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE dealer (
+	dealer_id INT NOT NULL,
+	dealer_name VARCHAR(20) NOT NULL,
+	contact_no VARCHAR(15) NOT NULL,
+	contact_mail VARCHAR(255) NOT NULL,
+	d_address varchar(40) NOT NULL,
+	d_city varchar(15) NOT NULL,
+	d_code varchar(11) NOT NULL,
+	d_state varchar(20) NOT NULL,
+	d_country varchar(15) NOT NULL
+);	
+
+----------------------------------------------
+
+CREATE TABLE dealer_product_branch (
+	dealer_id INT NOT NULL,
+	product_id INT NOT NULL,
+	branch_id INT NOT NULL,
+	quantity INT NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE bill (
+	bill_id INT PRIMARY KEY AUTO_INCREMENT,
+	customer_id VARCHAR(15) NOT NULL,
+	employee_id INT NOT NULL,
+	branch_id INT NOT NULL,
+	date_issued DATE NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE bill_product (
+	bill_id INT PRIMARY KEY AUTO_INCREMENT,
+	product_id INT NOT NULL,
+	quantity INT NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE transaction (
+	transaction_id INT PRIMARY KEY AUTO_INCREMENT,
+	bill_id INT NOT NULL,
+	transaction_date DATE NOT NULL,
+	total_amount INT NOT NULL,
+	payment_method VARCHAR(30) NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE service_centre (
+	service_id INT PRIMARY KEY,
+	pd_id INT NOT NULL,
+	bill_id INT NOT NULL,
+	branch_id INT NOT NULL,
+	start_date DATE NOT NULL,
+	deadline DATE NOT NULL,
+	end_date DATE
+);
+
+----------------------------------------------
