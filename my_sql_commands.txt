@@ -20,17 +20,17 @@ CREATE TABLE company (
 
 DESC company;
 
-INSERT INTO company VALUES ('141001', 'Apple Inc. Design', '121, XXX Street, YYY Nagar', 'Chennai', '600062', 'Tamil Nadu', 'India');
-INSERT INTO company VALUES ('142002', 'Apple Inc. Production', '223, XYZ Street, MMM Avenue', 'Miami', '33101', 'Florida', 'USA');
-INSERT INTO company VALUES ('148003', 'Apple Inc. Showroom', '96, AAA Street, MOL Nagar', 'Mumbai', '400056', 'Maharashtra', 'India');
-INSERT INTO company VALUES ('143004', 'Apple Inc. Factory', '88, OMG Street, REK Nagar', 'Hyderabad', '500005', 'Telangana', 'India');
-INSERT INTO company VALUES ('144005', 'Apple Inc. Warehouse', '127, LEO Street, INN Avenue', 'Brisbane', '4007', 'Queensland', 'Australia');
-INSERT INTO company VALUES ('149006', 'Apple Inc. Service Centre', '987, PRO Street, PER Nagar', 'Kolkata', '700003', 'West Bengal', 'India');
-INSERT INTO company VALUES ('147008', 'Apple Inc. Engineering', '37, YYY Street, YAK Avenue', 'Bloemfontein', '9300', 'Free State', 'South Africa');
-INSERT INTO company VALUES ('148007', 'Apple Inc. Showroom', '345, RRR Street, JUJ Town', 'Resistencia', 'H3500', 'Chaco', 'Argentina');
-INSERT INTO company VALUES ('146009', 'Apple Inc. Operations', '21, ABC Street, LOP Nagar', 'Madurai', '625007', 'Tamil Nadu', 'India');
-INSERT INTO company VALUES ('149010', 'Apple Inc. Service Centre', '23, DEF Street, SSS Avenue', 'Rennes', '35238', 'Brittany', 'France');
-INSERT INTO company VALUES ('143011', 'Apple Inc. Factory', '63, RFG Street, CCC Town', 'Toronto', '33101', 'Ontario', 'Canada');
+INSERT INTO company VALUES (141001, 'Apple Inc. Design', '121, XXX Street, YYY Nagar', 'Chennai', '600062', 'Tamil Nadu', 'India');
+INSERT INTO company VALUES (142002 'Apple Inc. Production', '223, XYZ Street, MMM Avenue', 'Miami', '33101', 'Florida', 'USA');
+INSERT INTO company VALUES (148003, 'Apple Inc. Showroom', '96, AAA Street, MOL Nagar', 'Mumbai', '400056', 'Maharashtra', 'India');
+INSERT INTO company VALUES (143004, 'Apple Inc. Factory', '88, OMG Street, REK Nagar', 'Hyderabad', '500005', 'Telangana', 'India');
+INSERT INTO company VALUES (144005, 'Apple Inc. Warehouse', '127, LEO Street, INN Avenue', 'Brisbane', '4007', 'Queensland', 'Australia');
+INSERT INTO company VALUES (149006, 'Apple Inc. Service Centre', '987, PRO Street, PER Nagar', 'Kolkata', '700003', 'West Bengal', 'India');
+INSERT INTO company VALUES (147008, 'Apple Inc. Engineering', '37, YYY Street, YAK Avenue', 'Bloemfontein', '9300', 'Free State', 'South Africa');
+INSERT INTO company VALUES (148007, 'Apple Inc. Showroom', '345, RRR Street, JUJ Town', 'Resistencia', 'H3500', 'Chaco', 'Argentina');
+INSERT INTO company VALUES (146009, 'Apple Inc. Operations', '21, ABC Street, LOP Nagar', 'Madurai', '625007', 'Tamil Nadu', 'India');
+INSERT INTO company VALUES (149010, 'Apple Inc. Service Centre', '23, DEF Street, SSS Avenue', 'Rennes', '35238', 'Brittany', 'France');
+INSERT INTO company VALUES (143011, 'Apple Inc. Factory', '63, RFG Street, CCC Town', 'Toronto', '33101', 'Ontario', 'Canada');
 INSERT INTO company VALUES (145001, 'Apple Inc. Store', '343, JOB Street, STV Avenue', 'New York City', '10038', 'New York', 'USA');
 
 ///
@@ -205,10 +205,7 @@ CREATE TABLE orders (
 	supplier_id INT NOT NULL,
 	branch_id INT NOT NULL,
 	status VARCHAR(10) DEFAULT 'INCOMPLETE' NOT NULL
-);
-
-INSERT INTO orders (
-	
+);	
 
 ----------------------------------------------
 
@@ -442,42 +439,54 @@ CREATE TABLE product (
 129 - Other accessories (cables, adapters, etc...)
 
 INSERT INTO product (product_id, product_name, specifications, warranty) VALUES 
-('111001', 'iPhone 15', 'A17 Bionic chip, upgraded cameras, potential design changes', '6 months'),
-('111002', 'iPhone 14 Pro', 'Triple-lens camera system, LiDAR scanner, ProMotion displays', '1 year'),
-('111003', 'iPhone 14', 'A16 Bionic chip, improved cameras, longer battery life', '1.5 years'),
-('111004', 'iPhone SE (3rd generation)', 'A15 Bionic chip, familiar design', '2 years'),
-('112001', 'iPad mini (7th generation)', 'A15 Bionic chip, Liquid Retina display, Apple Pencil support', '6 months'),
-('112002', 'iPad Air (5th generation)', 'M1 chip, 10.9-inch Liquid Retina display, Touch ID in power button', '1 year'),
-('113001', 'M2 Pro MacBook Pro', 'Apple\'s latest chips, Liquid Retina XDR displays, ProMotion technology', '1.5 years'),
-('113002', 'M2 MacBook Air', 'Sleek and lightweight laptop with M2 chip, longer battery life', '2 years'),
-('113003', 'Mac Studio', 'Desktop computer with up to M1 Ultra chip, ideal for creative professionals', '1 year'),
-('113004', '24-inch iMac', 'All-in-one computer with vibrant 4.5K Retina display, M1 chip', '1.5 years'),
-('114001', 'Apple Watch Series 9', 'ECG, Blood Oxygen app, advanced workout metrics, larger display', '2 years'),
-('114002', 'Apple Watch Ultra', 'Rugged smartwatch for extreme activities, titanium case, long battery life, built-in compass', '1 year'),
-('114003', 'Apple Watch SE (2nd generation)', 'Affordable smartwatch with heart rate monitoring, activity tracking, notifications', '6 months'),
-('115001', 'HomePod (2nd generation)', 'Immersive sound, Siri voice control, multi-room audio with AirPlay 2', '1.5 years'),
-('116001', 'AirPods (3rd generation)', 'Spatial Audio, improved sound quality, shorter stems', '2 years'),
-('116002', 'AirPods Pro (2nd generation)', 'Active noise cancellation, transparency mode, improved sound with H2 chip', '1 year'),
-('118001', 'Apple Pencil', 'Stylus for compatible iPads, Launched in 2015, charges via Lightning', '6 months'),
-('118002', 'Apple Pencil', 'Stylus for compatible iPads, Launched in 2018, charges wirelessly, magnetic attachment', '1 year'),
-('119002', 'USB-C to Lightning Cable (1m)', 'Charges and syncs iPhones, iPads, AirPods. 2m length also available.', '6 months'),
-('119003', 'Thunderbolt 4 Pro Cable (1m)', 'Connects MacBooks & iPads to displays & docking stations. Supports high-speed data transfer and charging. Longer lengths available.', '1 year'),
-('119004', 'USB-C Charge Cable (2m)', 'Charges MacBooks with USB-C ports. Available in various lengths.', '1 year'),
-('119005', 'Lightning to USB Cable (2m)', 'Connects iPhones and iPads to Macs and PCs for charging and data transfer. 1m length also available.', '1 year'),
-('119006', 'Apple Watch Magnetic Charging Cable (1m)', 'Charges Apple Watch models. Available in multiple colors.', '1 year'),
-('119007', 'USB-C to USB Adapter', 'Connects USB peripherals to MacBooks with only USB-C ports.', '1 year'),
-('119008', 'Lightning Digital AV Adapter', 'Outputs iPhone/iPad screen audio and video to HDMI TVs/displays.', '1 year'),
-('119009', 'Thunderbolt 3 (USB-C) to Thunderbolt 2 Adapter', 'Connects newer MacBooks to Thunderbolt 2 devices.', '1 year'),
-('119010', 'Apple 30-pin to VGA Adapter', 'Connects older iPhones/iPads to VGA projectors/displays.', '1 year'),
-('119011', 'USB-C to MagSafe 3 Cable (2m)', 'Charges MacBooks with MagSafe ports. Fast charging and secure magnetic connection.', '1 year');
+(111001, 'iPhone 15', 'A17 Bionic chip, upgraded cameras, potential design changes', '6 months'),
+(111002, 'iPhone 14 Pro', 'Triple-lens camera system, LiDAR scanner, ProMotion displays', '1 year'),
+(111003, 'iPhone 14', 'A16 Bionic chip, improved cameras, longer battery life', '1.5 years'),
+(111004, 'iPhone SE (3rd generation)', 'A15 Bionic chip, familiar design', '2 years'),
+(112001, 'iPad mini (7th generation)', 'A15 Bionic chip, Liquid Retina display, Apple Pencil support', '6 months'),
+(112002, 'iPad Air (5th generation)', 'M1 chip, 10.9-inch Liquid Retina display, Touch ID in power button', '1 year'),
+(113001, 'M2 Pro MacBook Pro', 'Apple\'s latest chips, Liquid Retina XDR displays, ProMotion technology', '1.5 years'),
+(113002, 'M2 MacBook Air', 'Sleek and lightweight laptop with M2 chip, longer battery life', '2 years'),
+(113003, 'Mac Studio', 'Desktop computer with up to M1 Ultra chip, ideal for creative professionals', '1 year'),
+(113004, '24-inch iMac', 'All-in-one computer with vibrant 4.5K Retina display, M1 chip', '1.5 years'),
+(114001, 'Apple Watch Series 9', 'ECG, Blood Oxygen app, advanced workout metrics, larger display', '2 years'),
+(114002, 'Apple Watch Ultra', 'Rugged smartwatch for extreme activities, titanium case, long battery life, built-in compass', '1 year'),
+(114003, 'Apple Watch SE (2nd generation)', 'Affordable smartwatch with heart rate monitoring, activity tracking, notifications', '6 months'),
+(115001, 'HomePod (2nd generation)', 'Immersive sound, Siri voice control, multi-room audio with AirPlay 2', '1.5 years'),
+(116001, 'AirPods (3rd generation)', 'Spatial Audio, improved sound quality, shorter stems', '2 years'),
+(116002, 'AirPods Pro (2nd generation)', 'Active noise cancellation, transparency mode, improved sound with H2 chip', '1 year'),
+(118001, 'Apple Pencil', 'Stylus for compatible iPads, Launched in 2015, charges via Lightning', '6 months'),
+(118002, 'Apple Pencil', 'Stylus for compatible iPads, Launched in 2018, charges wirelessly, magnetic attachment', '1 year'),
+(119002, 'USB-C to Lightning Cable (1m)', 'Charges and syncs iPhones, iPads, AirPods. 2m length also available.', '6 months'),
+(119003, 'Thunderbolt 4 Pro Cable (1m)', 'Connects MacBooks & iPads to displays & docking stations. Supports high-speed data transfer and charging. Longer lengths available.', '1 year'),
+(119004, 'USB-C Charge Cable (2m)', 'Charges MacBooks with USB-C ports. Available in various lengths.', '1 year'),
+(119005, 'Lightning to USB Cable (2m)', 'Connects iPhones and iPads to Macs and PCs for charging and data transfer. 1m length also available.', '1 year'),
+(119006, 'Apple Watch Magnetic Charging Cable (1m)', 'Charges Apple Watch models. Available in multiple colors.', '1 year'),
+(119007, 'USB-C to USB Adapter', 'Connects USB peripherals to MacBooks with only USB-C ports.', '1 year'),
+(119008, 'Lightning Digital AV Adapter', 'Outputs iPhone/iPad screen audio and video to HDMI TVs/displays.', '1 year'),
+(119009, 'Thunderbolt 3 (USB-C) to Thunderbolt 2 Adapter', 'Connects newer MacBooks to Thunderbolt 2 devices.', '1 year'),
+(119010, 'Apple 30-pin to VGA Adapter', 'Connects older iPhones/iPads to VGA projectors/displays.', '1 year'),
+(119011, 'USB-C to MagSafe 3 Cable (2m)', 'Charges MacBooks with MagSafe ports. Fast charging and secure magnetic connection.', '1 year');
+
 
 ----------------------------------------------
 
-CREATE TABLE product_branch (
+CREATE TABLE project_product (
+	project_id INT NOT NULL,
+	product_id INT NOT NULL
+);
+	
+----------------------------------------------
+
+CREATE TABLE transports (
+	transport_id INT PRIMARY KEY AUTO_INCREMENT,
 	product_id INT NOT NULL,
-	branch_id INT NOT NULL,
+	source_branch_id INT NOT NULL,
+	destination_branch_id INT NOT NULL,
 	quantity INT NOT NULL,
-	manufacture_date DATE NOT NULL 
+	manufacture_date DATE NOT NULL,
+	receive_date DATE,
+	status VARCHAR(12) NOT NULL DEFAULT 'NOT RECEIVED'
 );
 
 ----------------------------------------------
@@ -503,13 +512,25 @@ CREATE TABLE showroom (
 	branch_id INT NOT NULL,
 	product_id INT NOT NULL,
 	product_stock INT NOT NULL,
-	warehouse_id INT NOT NULL
+);
+
+----------------------------------------------
+
+CREATE TABLE warehouse_to_showroom (
+	ws_id INT PRIMARY KEY AUTO_INCREMENT,
+	product_id INT NOT NULL,
+	source_branch_id INT NOT NULL,
+	destination_branch_id INT NOT NULL,
+	quantity INT NOT NULL,
+	send_date DATE NOT NULL,
+	receive_date DATE,
+	status VARCHAR(12) NOT NULL DEFAULT 'NOT RECEIVED'
 );
 
 ----------------------------------------------
 
 CREATE TABLE dealer (
-	dealer_id INT NOT NULL,
+	dealer_id INT PRIMARY KEY AUTO_INCREMENT,
 	dealer_name VARCHAR(20) NOT NULL,
 	contact_no VARCHAR(15) NOT NULL,
 	contact_mail VARCHAR(255) NOT NULL,
@@ -519,6 +540,19 @@ CREATE TABLE dealer (
 	d_state varchar(20) NOT NULL,
 	d_country varchar(15) NOT NULL
 );	
+
+----------------------------------------------
+
+CREATE TABLE warehouse_to_dealer (
+	wd_id INT PRIMARY KEY AUTO_INCREMENT,
+	product_id INT NOT NULL,
+	source_branch_id INT NOT NULL,
+	destination_dealer_id INT NOT NULL,
+	quantity INT NOT NULL,
+	send_date DATE NOT NULL,
+	receive_date DATE,
+	status VARCHAR(12) NOT NULL DEFAULT 'NOT RECEIVED'
+);
 
 ----------------------------------------------
 

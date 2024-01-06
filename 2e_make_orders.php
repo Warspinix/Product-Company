@@ -23,14 +23,14 @@
                         <div class='left'><br><br>
                             $name, $country";
                             if ($_SESSION["position"]=="Regular") {
-                                echo "<ul>
+                                echo "<ul><br>
                                         <li><a href='2a_check_spares.php'>Check Spares</a></li>
                                         <li><a href='2b_view_orders.php'>View Orders</a></li>
                                         <li><a href='2c_view_production_details.php'>View Production Details</a></li>
                                         <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
                                     </ul>";
                             } else if ($_SESSION["position"]=="Manager") {
-                                echo "<ul>
+                                echo "<ul><br>
                                         <li><a href='2a_check_spares.php'>Check Spares</a></li>
                                         <li><a href='2b_view_orders.php'>View Orders</a></li>
                                         <li><a href='2c_view_production_details.php'>View Production Details</a></li>
@@ -38,12 +38,13 @@
                                         <li><a href='2e_make_orders.php'>Make Orders</a></li>
                                     </ul>";
                             } else {
-                                echo "<ul>
+                                echo "<ul><br>
                                         <li><a href='2a_check_spares.php'>Check Spares</a></li>
                                         <li><a href='2b_view_orders.php'>View Orders</a></li>
                                         <li><a href='2c_view_production_details.php'>View Production Details</a></li>
                                         <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
                                         <li><a href='2e_make_orders.php'>Make Orders</a></li>
+                                        <li><a href='2f_update_production_details.php'>Update Production Details</a></li>
                                     </ul>";
                             }
                             echo "
@@ -78,12 +79,10 @@
                                 $quantity=$_POST["quantity"];
                                 $supplier_id=$_POST["supplier_id"];
                                 $order_date=date("Y-m-d");
-                                $q2="SELECT * FROM spares
-                                    WHERE spare_id=$spare_id";
+                                $q2="SELECT * FROM spares WHERE spare_id=$spare_id";
                                 if ($res2=mysqli_query($link, $q2)) {
                                     if (mysqli_num_rows($res2) == 1) {
-                                        $q3="SELECT * FROM suppliers
-                                            WHERE supplier_id=$supplier_id";
+                                        $q3="SELECT * FROM suppliers WHERE supplier_id=$supplier_id";
                                         if ($res3=mysqli_query($link, $q3)) {
                                             if (mysqli_num_rows($res3) == 1) {
                                                 $q4="SELECT part_name FROM spares WHERE spare_id=$spare_id";

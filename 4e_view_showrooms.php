@@ -60,14 +60,34 @@
                             </div>
                         </div>
                         <div class='main'>";
-                            $q2 = "SELECT * FROM company";
+                            $q2="SELECT branch_id, b_name, b_address, b_city, b_state
+                                FROM company
+                                WHERE (b_name LIKE '%Showroom' OR b_name LIKE '%Store')
+                                AND b_country IN 
+                                    (SELECT b_country
+                                    FROM company
+                                    WHERE branch_id=$_SESSION[branch_id]);";
                             if ($res2=mysqli_query($link, $q2)) {
                                 if (mysqli_num_rows($res2) > 0) {
+                                    echo "
+                                    <br><br><h1>Nearby Showrooms</h1><br><br>
+                                    <table>
+                                        <tr>
+                                            <th>Showroom ID</th>
+                                            <th>Showroom Name</th>
+                                            <th>Location</th>
+                                        </tr>";
                                     while ($row2=mysqli_fetch_array($res2)) {
-
+                                        echo "
+                                        <tr>
+                                            <td>$row2[branch_id]</td>
+                                            <td>$row2[b_name]</td>
+                                            <td>$row2[b_address], $row2[b_city], $row2[b_state]</td>
+                                        </tr>";
                                     }
+                                    echo "</table>";
                                 } else {
-                                    echo "<br><h1>No</h1>";
+                                    echo "<br><h1>No showrooms found.</h1>";
                                 }
                             } else {
                                 die("<br><br>Error: ".mysqli_error($link));

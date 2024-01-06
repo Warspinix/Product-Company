@@ -4,26 +4,39 @@
 <html>
     <head>
         <title>Login</title>
-        <link rel="stylesheet" href="login_style.css">
+        <link rel="stylesheet" href="style_login.css">
     </head>
     <body>
-        <h1>Login</h1>
-        <div class=
-        <form method="POST">
-            <input type="text" name="id" placeholder="Employee ID" required>
-            <br><br>
-            <input type="password" name="password" placeholder="Password" required>
-            <br><br>
-            <input type="submit" value="Login">
+        <div class="wrapper">
+            <div class="title">
+                Login
+            </div>
+            <form method="POST">
+                <br>
+                <div class="field">
+                    <input type="text" name="id" minlength="8" maxlength="8" required>
+                    <label for="employee_id">Employee ID</label>
+                </div>
+                <div class="field">
+                    <input type="password" name="password" required>
+                    <label for="password">Password</label>
+                </div>
+                <br>
+                <div class="field">
+                    <input type="submit" value="Login">
+                </div>
+                <div class="text">
+                    &emsp;<a href="0_home.html">Go Home</a>
+                    &emsp;&emsp;&emsp;&emsp;<a href="0_forgot_password.php">Forgot Password?</a>
+                </div>
         </form>
         <?php
             if(isset($_POST["password"])) {
                 $id=$_POST["id"];
                 $password = $_POST["password"];
                 $link = mysqli_connect("localhost","root","","product_company");
-                if ($link == FALSE) {
+                if ($link == FALSE)
                     die("Error connecting to database. Please try again later.");
-                }
                 $select = "SELECT * FROM employee
                             WHERE employee_id='$id'";
                 if ($result = mysqli_query($link, $select)) {
@@ -54,15 +67,20 @@
                             elseif (substr($_SESSION["id"],0,3) == "139")
                                 header("Location: 9_service.php");
                         } else {
-                            echo "<br>Incorrect Password<br>";
+                            echo "<div class='text' style='text-align: center'>
+                                    Incorrect Password.
+                                </div><br>";
                         }
                     } else {
-                        echo "<br>You aren't registered.<br>";
+                        echo "<div class='text' style='text-align: center;'>
+                                You aren't registered.
+                            </div><br>";
                     }    
                 } else {
                     echo "Unknown Error: ".mysqli_error($link);
                 }
             }
         ?>
+        </div>
     </body>
 </html>
