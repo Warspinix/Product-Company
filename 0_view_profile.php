@@ -5,6 +5,25 @@
     <head>
         <title></title>
         <link rel="stylesheet" href="style.css">
+        <style>
+            table, th, td {
+                border: 2px solid black;
+                border-collapse: collapse;
+                table-layout: fixed;
+                font-size: 18px;	
+                text-align: left;
+            }
+            table {
+                border-spacing: 30px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            th, td {
+                word-wrap: break-word;
+                max-width: 500px; 
+                padding: 15px;
+            }
+        </style>
     </head>
     <body>
     <?php
@@ -25,15 +44,15 @@
                 $branch = $row1["b_name"].", ".$row1["b_address"].", ".$row1["b_city"]." - ".$row1["b_code"]
                             .", ".$row1["b_state"].", ".$row1["b_country"];
                 echo "<div class='container'>
-                        <div class='left'><br><br>".
-                            $row1["b_name"].", ".$row1["b_country"]."
+                        <div class='left'><br><br>
+                            $row1[b_name], $row1[b_country]
                             <div class='profile-section'>
                                 <br>
                                 <div class='username'>
                                     ".$_SESSION['fname']." ".$_SESSION['lname']."
                                 </div>
                                     <a href='$previous_page'><button class='edit-button'>Go Back</button></a>
-                                    <a href='0_logout.php'><button class='logout'>Logout</button></a><br><br>
+                                    <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
                         <div class='main'>";
@@ -45,7 +64,7 @@
                                 $gender= "Female";
                             else 
                                 $gender= "Other";
-                            echo "<br><br><h1>Profile</h1><br><br>  
+                            echo "<br><h1>Profile</h1><br>
                                     <table> 
                                         <tr>
                                             <th>Name</th> 
@@ -95,7 +114,7 @@
         } else {
             echo "<br><br><div style='text-align:center;'><h1>You aren't logged in.</h1><br>
                     <a href='0_home.html'><button class='edit-button'>Go Home</button></a>&emsp;
-                    <a href='0_login.php'><button class='edit-button'>Login</button></a></div><br><br>";
+                    <a href='0_login.php'><button class='edit-button'>Login</button></a></div>";
         }
     ?>
     </body>

@@ -20,10 +20,13 @@
                 $name = $row1["b_name"];
                 $country = $row1["b_country"];
                 echo "<div class='container'>
-                        <div class='left'><br>
-                            $name, $country";
+                        <div class='left'>
+                            <br>
+                            <div class='branch'>
+                                $name, $country
+                            </div>";
                             if ($_SESSION["position"]=="Regular") {
-                                echo "<ul>
+                                echo "<ul><br>
                                         <li><a href='8a_view_incoming_products.php'>View Incoming Products</a></li>
                                         <li><a href='8b_receive_products.php'>Receive Products</a></li>
                                         <li><a href='8b_view_customers.php'>View Customers</a></li>
@@ -67,14 +70,38 @@
                             </div>
                         </div>
                         <div class='main'>";
-                            $q2 = "SELECT * FROM company";
+                            $q2="SELECT ws_id, p.product_id, product_name, quantity, b_name, b_address, b_city, b_state
+                                FROM product p
+                                INNER JOIN warehouse_to_showroom ws
+                                ON p.product_id=ws.product_id
+                                INNER JOIN company c
+                                ON branch_id=source_branch_id
+                                WHERE destination_branch_id=$_SESSION[branch_id]";
+                            $receive_date=date("Y-m-d");
                             if ($res2=mysqli_query($link, $q2)) {
                                 if (mysqli_num_rows($res2) > 0) {
+                                    echo "
+                                    <br><br><h1>Incoming Product Transports</h1>
+                                    <table>
+                                        <tr>
+                                            <th>Transport ID</th>
+                                            <th>Product ID</th>
+                                            <th>Product Name</th>
+                                            <th>Quantity</th>
+                                            <th>Transported From</th>
+                                        </tr>";
                                     while ($row2=mysqli_fetch_array($res2)) {
-
+                                        echo "
+                                        <tr>
+                                            <td>$row2[ws_id]</td>
+                                            <td>$row2[product_id]</td>
+                                            <td>$row2[product_name]</td>
+                                            <td>$row2[quantity]</td>
+                                            <td>$row2[b_name], $row2[b_address], $row2[b_city], $row2[b_state]</td>
+                                        </tr>";
                                     }
                                 } else {
-                                    echo "<br><h1>No</h1>";
+                                    echo "<br><br><h1>No Incoming Product Transports.</h1>";
                                 }
                             } else {
                                 die("<br><br>Error: ".mysqli_error($link));

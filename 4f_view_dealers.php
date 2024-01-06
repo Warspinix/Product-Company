@@ -60,14 +60,33 @@
                             </div>
                         </div>
                         <div class='main'>";
-                            $q2 = "SELECT * FROM company";
+                            $q2="SELECT dealer_id, dealer_name, d_address, d_city, d_state
+                                FROM dealer
+                                WHERE d_country IN 
+                                    (SELECT b_country
+                                    FROM company
+                                    WHERE branch_id=$_SESSION[branch_id]);";
                             if ($res2=mysqli_query($link, $q2)) {
                                 if (mysqli_num_rows($res2) > 0) {
+                                    echo "
+                                    <br><br><h1>Nearby Dealers</h1><br><br>
+                                    <table>
+                                        <tr>
+                                            <th>Dealer ID</th>
+                                            <th>Dealer Name</th>
+                                            <th>Location</th>
+                                        </tr>";
                                     while ($row2=mysqli_fetch_array($res2)) {
-
+                                        echo "
+                                        <tr>
+                                            <td>$row2[dealer_id]</td>
+                                            <td>$row2[dealer_name]</td>
+                                            <td>$row2[d_address], $row2[d_city], $row2[d_state]</td>
+                                        </tr>";
                                     }
+                                    echo "</table>";
                                 } else {
-                                    echo "<br><h1>No</h1>";
+                                    echo "<br><h1>No dealers found.</h1>";
                                 }
                             } else {
                                 die("<br><br>Error: ".mysqli_error($link));

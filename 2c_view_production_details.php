@@ -24,14 +24,14 @@
                         <div class='left'><br><br>".
                             $name. ", ".$country;
                             if ($_SESSION["position"]=="Regular") {
-                                echo "<ul>
+                                echo "<ul><br>
                                         <li><a href='2a_check_spares.php'>Check Spares</a></li>
                                         <li><a href='2b_view_orders.php'>View Orders</a></li>
                                         <li><a href='2c_view_production_details.php'>View Production Details</a></li>
                                         <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
                                     </ul>";
                             } else if ($_SESSION["position"]=="Manager") {
-                                echo "<ul>
+                                echo "<ul><br>
                                         <li><a href='2a_check_spares.php'>Check Spares</a></li>
                                         <li><a href='2b_view_orders.php'>View Orders</a></li>
                                         <li><a href='2c_view_production_details.php'>View Production Details</a></li>
@@ -39,12 +39,13 @@
                                         <li><a href='2e_make_orders.php'>Make Orders</a></li>
                                     </ul>";
                             } else {
-                                echo "<ul>
+                                echo "<ul><br>
                                         <li><a href='2a_check_spares.php'>Check Spares</a></li>
                                         <li><a href='2b_view_orders.php'>View Orders</a></li>
                                         <li><a href='2c_view_production_details.php'>View Production Details</a></li>
                                         <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
                                         <li><a href='2e_make_orders.php'>Make Orders</a></li>
+                                        <li><a href='2f_update_production_details.php'>Update Production Details</a></li>
                                     </ul>";
                             }
                             echo "
@@ -58,12 +59,16 @@
                             </div>
                         </div>
                         <div class='main'>";
-                            $q2 = "SELECT project_name, pb.start_date, deadline, allocated_budget
+                            $q2 = "SELECT project_name, product_id, product_name, pb.start_date, deadline, allocated_budget
                                     FROM project p
                                     INNER JOIN project_branch pb
                                     ON p.project_id=pb.project_id
                                     INNER JOIN company c
                                     ON pb.branch_id=c.branch_id
+                                    INNER JOIN project_product ppr
+                                    ON p.project_id=ppr.project_id
+                                    INNER JOIN product pr
+                                    ON ppr.product_id=pr.product_id
                                     WHERE pb.branch_id=$_SESSION[branch_id]";
                             if ($res2=mysqli_query($link, $q2)) {
                                 if (mysqli_num_rows($res2)>0) {
@@ -73,6 +78,8 @@
                                     <table>
                                         <tr>
                                             <th>Project</th>
+                                            <th>Product ID</th>
+                                            <th>Product Name</th>
                                             <th>Start Date</th>
                                             <th>Deadline</th>
                                             <th>Budget</th>
@@ -81,6 +88,8 @@
                                          echo "
                                          <tr>
                                             <td>$row[project_name]</td>
+                                            <td>$row[product_id]</td>
+                                            <td>$row[product_name]</td>
                                             <td>$row[start_date]</td>
                                             <td>$row[deadline]</td>
                                             <td>$row[allocated_budget]</td>

@@ -20,10 +20,13 @@
                 $name = $row1["b_name"];
                 $country = $row1["b_country"];
                 echo "<div class='container'>
-                        <div class='left'><br>
-                            $name, $country";
+                        <div class='left'>
+                            <br>
+                            <div class='branch'>
+                                $name, $country
+                            </div>";
                             if ($_SESSION["position"]=="Regular") {
-                                echo "<ul>
+                                echo "<ul><br>
                                         <li><a href='8a_view_incoming_products.php'>View Incoming Products</a></li>
                                         <li><a href='8b_receive_products.php'>Receive Products</a></li>
                                         <li><a href='8b_view_customers.php'>View Customers</a></li>
@@ -67,19 +70,52 @@
                             </div>
                         </div>
                         <div class='main'>";
-                            $q2 = "SELECT * FROM company";
-                            if ($res2=mysqli_query($link, $q2)) {
-                                if (mysqli_num_rows($res2) > 0) {
-                                    while ($row2=mysqli_fetch_array($res2)) {
+                        ?>
+                        <br><br><h1>Receive Products</h1>
+                        <form method="POST">
+                            <br><br>
+                            <input type="number" name="ws_id" min=1 placeholder="Transport ID" required>
+                            <br><br>
+                            <input type="submit" value="Receive">
+                        </form>
+                        <?php
+                            if (isset($_POST["ws_id"])) {
+                                $ws_id=$_POST["ws_id"];
+                                $q2="SELECT destination_branch_id 
+                                    FROM warehouse_to_showroom
+                                    WHERE ws_id=$ws_id";
+                                if ($res2=mysqli_query($link, $q2)) {
+                                    if (mysqli_num_rows($res2)>0) {
+                                        $row2=mysqli_fetch_array($res2);
+                                        $destination_branch_id=$row2["destination_branch_id"];
+                                        $q4="SELECT ws_id, p.product_id, product_name, quantity, b_name, b_address, b_city, b_state
+                                            FROM product p
+                                            INNER JOIN warehouse_to_showroom ws
+                                            ON p.product_id=ws.product_id
+                                            INNER JOIN company c
+                                            ON branch_id=source_branch_id
+                                            WHERE destination_branch_id=$_SESSION[branch_id]
+                                            AND ws_id=$ws_id";
+                                        if ($res4=mysqli_query($link, $q4)) {
+                                            if (mysqli_num_rows($res4) > 0) {
+                                                while ($row4=mysqli_fetch_array($res4)) {
 
+                                                }
+                                            } else {
+                                                echo "<br>The given transport ID is not associated with this branch.";
+                                            }
+                                        } else {
+                                            die("<br><br>Error: ".mysqli_error($link));
+                                        }
+                                    } else {
+                                        echo "<br>Transport ID not found.";
                                     }
                                 } else {
-                                    echo "<br><h1>No</h1>";
-                                }
-                            } else {
-                                die("<br><br>Error: ".mysqli_error($link));
+                                    die("<br><br>Error: ".mysqli_error($link));
+                                }            
                             }           
-                        echo "</div>
+                        echo "
+                        </div>
                     </div>
                 ";
             } else {

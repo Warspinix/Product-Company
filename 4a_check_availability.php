@@ -60,18 +60,47 @@
                             </div>
                         </div>
                         <div class='main'>";
-                            $q2 = "SELECT * FROM company";
-                            if ($res2=mysqli_query($link, $q2)) {
-                                if (mysqli_num_rows($res2) > 0) {
-                                    while ($row2=mysqli_fetch_array($res2)) {
-
+                        ?>
+                        <br><br><h1>Check Product Availability</h1>
+                        <form method="POST">
+                            <br><br>
+                            <input type="text" name="product_name" placeholder="Product Name" required>
+                            <br><br>
+                            <input type="submit" value="Check">
+                        <?php
+                            if (isset($_POST["product_name"])) {
+                                $product_name=$_POST["product_name"];
+                                $q2="SELECT p.product_id, product_name 
+                                    FROM product p
+                                    INNER JOIN warehouse w
+                                    ON p.product_id=w.product_id
+                                    INNER JOIN company c
+                                    ON w.branch_id=c.branch_id
+                                    WHERE product_name LIKE '%$product_name%'
+                                    AND c.branch_id=$_SESSION[branch_id]";
+                                if ($res2=mysqli_query($link, $q2)) {
+                                    if (mysqli_num_rows($res2)>0) {
+                                        echo "
+                                        <table
+                                            <tr>
+                                                <th>Product ID</th>
+                                                <th>Product Name</th>
+                                            </tr>";
+                                        while ($row2=mysqli_fetch_array($res2)) {
+                                            echo "
+                                            <tr>
+                                                <td>$row2[product_id]</td>
+                                                <td>$row2[product_name]</td>
+                                            </tr>";
+                                        }
+                                    echo "</table>";
+                                    } else {
+                                        echo "<br><br>No data found.<br>";
                                     }
                                 } else {
-                                    echo "<br><h1>No</h1>";
-                                }
-                            } else {
-                                die("<br><br>Error: ".mysqli_error($link));
-                            }           
+                                    die("<br><br>Error: ".mysqli_error($link));
+                                } 
+                            }          
                         echo "</div>
                     </div>
                 ";
