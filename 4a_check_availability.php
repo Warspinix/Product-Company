@@ -20,12 +20,12 @@
                 $name = $row1["b_name"];
                 $country = $row1["b_country"];
                 echo "<div class='container'>
-                        <div class='left'><br><br>
-                            $name, $country";
+                        <div class='left'>
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
                             if ($_SESSION["position"]=="Regular") {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Ongoing Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4e_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -33,7 +33,7 @@
                             } else if ($_SESSION["position"]=="Manager") {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Ongoing Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4f_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -42,7 +42,7 @@
                             } else {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4f_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -61,16 +61,20 @@
                         </div>
                         <div class='main'>";
                         ?>
-                        <br><br><h1>Check Product Availability</h1>
+                        <br><h1>Check Product Availability</h1>
                         <form method="POST">
-                            <br><br>
-                            <input type="text" name="product_name" placeholder="Product Name" required>
-                            <br><br>
-                            <input type="submit" value="Check">
+                            <br>
+                            <div class="field">
+                                <input type="text" name="product_name" required>
+                                <label for="product_name">Product Name</label>
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Check">
+                            </div>
                         <?php
                             if (isset($_POST["product_name"])) {
                                 $product_name=$_POST["product_name"];
-                                $q2="SELECT p.product_id, product_name 
+                                $q2="SELECT p.product_id, product_name, quantity 
                                     FROM product p
                                     INNER JOIN warehouse w
                                     ON p.product_id=w.product_id
@@ -85,12 +89,14 @@
                                             <tr>
                                                 <th>Product ID</th>
                                                 <th>Product Name</th>
+                                                <th>Quantity</th>
                                             </tr>";
                                         while ($row2=mysqli_fetch_array($res2)) {
                                             echo "
                                             <tr>
                                                 <td>$row2[product_id]</td>
                                                 <td>$row2[product_name]</td>
+                                                <td>$row2[quantity]</td>
                                             </tr>";
                                         }
                                     echo "</table>";

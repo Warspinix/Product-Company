@@ -20,12 +20,12 @@
                 $name = $row1["b_name"];
                 $country = $row1["b_country"];
                 echo "<div class='container'>
-                        <div class='left'><br><br>
-                            $name, $country";
+                        <div class='left'>
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
                             if ($_SESSION["position"]=="Regular") {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Ongoing Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4e_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -33,7 +33,7 @@
                             } else if ($_SESSION["position"]=="Manager") {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Ongoing Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4f_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -42,7 +42,7 @@
                             } else {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4f_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -61,22 +61,31 @@
                         </div>
                         <div class='main' id='mainID'>";
                         ?>
-                        <br><br><h1>Transport Products</h1>
+                        <br><h1>Transport Products</h1>
                         <form method="POST">
-                            <br><br>
-                            <select name="destination" required>
-                                <option value="" disable select>Showroom or Dealer</option>
-                                <option value="showroom">Showroom</option>
-                                <option value="dealer">Dealer</option>
-                            </select>
-                            <br><br>
-                            <input type="number" name="destination_id" placeholder="Destination ID" required>
-                            <br><br>
-                            <input type="number" name="product_id" placeholder="Product ID" required>
-                            <br><br>
-                            <input type="number" name="quantity" min=1 placeholder="Quantity" required>
-                            <br><br>
-                            <input type="submit" value="Schedule Transport">
+                            <br>
+                            <div class="field">
+                                <select name="destination" required>
+                                    <option value="" disable select>Showroom or Dealer</option>
+                                    <option value="showroom">Showroom</option>
+                                    <option value="dealer">Dealer</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <input type="number" name="destination_id" required>
+                                <label for="destination_id">Destination ID</label>
+                            </div>
+                            <div class="field">
+                                <input type="number" name="product_id" required>
+                                <label for="product_id">Product ID</label>
+                            </div>
+                            <div class="field">
+                                <input type="number" name="quantity" min=1 required>
+                                <label for="quantity">Quantity</label>
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Schedule Transport">
+                            </div>
                         </form>
                         <?php
                             if (isset($_POST["quantity"])) {
@@ -85,14 +94,52 @@
                                 $product_id=$_POST["product_id"];
                                 $quantity=$_POST["quantity"];
                                 $send_date=date("Y-m-d");
-                                $q2="SELECT product_name
+                                if ($destination=="showroom") {
+                                    $q2="SELECT b_name, b_address, b_city, b_state
+                                        FROM company
+                                        WHERE branch_id=$destination_id";
+                                    if ($res2=mysqli_query($link, $q2)) {
+                                        if (mysqli_num_rows($res2)==1) {
+                                            $row2=mysqli_fetch_array($res2);
+                                            if (($destination_id<145000 && $destination_id>145999)
+                                                || ($destination_id<148000 && $destination_id>148999)) {
+                                                $destination_name=$row2["b_name"];
+                                                $destination_city=$row2["b_city"];
+                                                $destination_state=$row2["b_state"];
+                                            } else {
+                                                die("This branch is not a showroom.");
+                                            }
+                                        } else {
+                                            die("Showroom not found.");
+                                        }
+                                    } else {
+                                        die("Error: ".mysqli_error($link));
+                                    }
+                                } else if ($destination=="dealer") {
+                                    $q2="SELECT d_name, d_address, d_city, d_state
+                                        FROM dealer
+                                        WHERE dealer_id=$destination_id";
+                                    if ($res2=mysqli_query($link, $q2)) {
+                                        if (mysqli_num_rows($res2)==1) {
+                                            $destination_name=$row2["dealer_name"];
+                                            $destination_city=$row2["d_city"];
+                                            $destination_state=$row2["d_state"];
+                                        }
+                                        else {
+                                            die("Dealer not found.");
+                                        } 
+                                    } else {
+                                        die("Error: ".mysqli_error($link));
+                                    }
+                                } 
+                                $q3="SELECT product_name
                                 FROM product
                                 WHERE product_id=$product_id";
-                                if ($res2=mysqli_query($link, $q2)) {
-                                    if (mysqli_num_rows($res2) == 1) {
-                                        $row2=mysqli_fetch_array($res2);
-                                        $product_name=$row2["product_name"];
-                                        $q3="SELECT product_stock, branch_name, branch_country product_name
+                                if ($res3=mysqli_query($link, $q3)) {
+                                    if (mysqli_num_rows($res3) == 1) {
+                                        $row3=mysqli_fetch_array($res3);
+                                        $product_name=$row3["product_name"];
+                                        $q3="SELECT product_stock, branch_name, branch_country, product_name
                                         FROM warehouse w
                                         INNER JOIN company c
                                         ON w.branch_id=c.branch_id
@@ -101,48 +148,50 @@
                                         WHERE w.branch_id=$_SESSION[branch_id]
                                         AND w.product_id=$product_id"; 
                                         if ($res3=mysqli_query($link, $q3)) {
-                                                if (mysqli_num_rows($res3) == 1) {
+                                            if (mysqli_num_rows($res3) == 1) {
                                                 $actual_quantity=$row2["product_stock"];
                                                 $branch_name=$row2["branch_name"];
                                                 $product_name=$row2["product_name"];
                                                 if ($actual_quantity-$quantity>0) { 
                                                     if ($destination="showroom") {
-                                                        $q5="INSERT INTO warehouse_to_showroom
-                                                            (product_id, source_branch_id, destination_branch_id, quantity, send_date) VALUES
-                                                            ($product_id, $SESSION[branch_id], $destination_id, $quantity, $send_date)";
+                                                        $q5="INSERT INTO warehouse_transports
+                                                            (product_id, source_branch_id, destination_branch_id, destination_type, quantity, send_date) VALUES
+                                                            ($product_id, $SESSION[branch_id], $destination_id, $destination, $quantity, $send_date)";
                                                     } else if ($destination="dealer") {
-                                                        $q5="INSERT INTO warehouse_to_dealer
-                                                            (product_id, source_branch_id, destination_branch_id, quantity, send_date) VALUES
-                                                            ($product_id, $SESSION[branch_id], $destination_id, $quantity, $send_date)";
+                                                        $q5="INSERT INTO warehouse_transports
+                                                            (product_id, source_branch_id, destination_dealer_id, destination_type, quantity, send_date) VALUES
+                                                            ($product_id, $SESSION[branch_id], $destination_id, $destination, $quantity, $send_date)";
                                                     }
                                                     if (mysqli_query($link, $q5)) {
                                                         $q6="UPDATE warehouse
-                                                                SET product_stock=$actual_quantity-$quantity
-                                                                WHERE branch_id=$_SESSION[branch_id]
-                                                                AND product_id=$product_id";
+                                                            SET product_stock=$actual_quantity-$quantity
+                                                            WHERE branch_id=$_SESSION[branch_id]
+                                                            AND product_id=$product_id";
                                                         if (mysqli_query($link, $q6)) {
-                                                            echo "<br><br>Transport of $quantity units of 
-                                                                $product_name to $branch_name, $branch_country successful";
+                                                            echo "Transport of $quantity units of 
+                                                                $product_name to $destination_name, 
+                                                                $destination_city, $destination_state 
+                                                                is successful";
                                                         } else {
-                                                            die("<br><br>Error: ".mysqli_error($link));
+                                                            die("Error: ".mysqli_error($link));
                                                         }
                                                     } else {
-                                                        die("<br><br>Error: ".mysqli_error($link));
+                                                        die("Error: ".mysqli_error($link));
                                                     }
                                                 } else {
-                                                    echo "<br><br>The required quantity of $product_name is NOT available.";
+                                                    echo "The required quantity of $product_name is NOT available.";
                                                 }
                                             } else {
-                                                echo "<br><br>This product is not available at this branch.";
+                                                echo "This product is not available at this branch.";
                                             }
                                         } else {
-                                            die("<br><br>Error: ".mysqli_error($link));
+                                            die("Error: ".mysqli_error($link));
                                         }
                                     } else {
-                                        echo "<br><br>Product ID not found.";
+                                        echo "Product ID not found.";
                                     }
                                 } else {
-                                    die("<br><br>Error: ".mysqli_error($link));
+                                    die("Error: ".mysqli_error($link));
                                 }
                             }           
                         echo "
@@ -150,7 +199,7 @@
                     </div>
                 ";
             } else {
-                die("<br><br>Error: ".mysqli_error($link));
+                die("Error: ".mysqli_error($link));
             }
         } else {
             echo "<br><br><div style='text-align:center;'><h1>You aren't logged in.</h1><br>

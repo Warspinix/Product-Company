@@ -33,14 +33,14 @@
                                         <li><a href='8a_products.php'>Products</a></li>
                                         <li><a href='8b_customers.php'>Customers</a></li>
                                         <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                         
-                                        <li><a href='8D_employee.php'>Employee</a></li>
+                                        <li><a href='8d_employee.php'>Employee</a></li>
                                     </ul>";
                             } else {
                                 echo "<ul><br>
                                         <li><a href='8a_products.php'>Products</a></li>
                                         <li><a href='8b_customers.php'>Customers</a></li>
                                         <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                         
-                                        <li><a href='8D_employee.php'>Employee</a></li>
+                                        <li><a href='8d_employee.php'>Employee</a></li>
                                     </ul>";
                             }
                             echo "
@@ -53,8 +53,36 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>";      
-                        echo "</div>
+                        <div class='main'>";
+                        ?>
+                        <div class="top">
+                            <ul>
+                                <li><a href="8c1_create_new_bill.php">
+                                    Create New Bill
+                                </a></li>
+                                <li><a href="8c2_add_to_existing_bill.php">
+                                    Add to Existing Bill
+                                </a></li>
+                                <li><a href="8c3_remove_from_existing_bill.php">
+                                    Remove From Existing Bill
+                                </a></li>
+                                <li><a href="8c4_create_new_transaction.php">
+                                    Create New Transaction
+                                </a></li>
+                                <li> <a href="8c5_update_existing_transaction.php">
+                                    Update Existing Transaction
+                                </a></li>
+                                <li> <a href="8c6_view_bill.php">
+                                    View Bill
+                                </a></li>
+                                <li> <a href="8c7_view_transaction.php">
+                                    View Transaction
+                                </a></li>    
+                            </ul>
+                        </div>
+                        <?php
+                        echo "
+                        </div>
                     </div>
                 ";
             } else {
@@ -67,4 +95,4 @@
         }
     ?>
     </body>
-</html>
+</html>                   

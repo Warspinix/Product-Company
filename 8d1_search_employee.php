@@ -30,17 +30,17 @@
                                     </ul>";
                             } else if ($_SESSION["position"]=="Manager") {
                                 echo "<ul><br>
-                                        <li><a href='8a_products.php'>Products</a></li>
+                                        <li<a href='8a_products.php'>Products</a></li>
                                         <li><a href='8b_customers.php'>Customers</a></li>
                                         <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                         
-                                        <li><a href='8D_employee.php'>Employee</a></li>
+                                        <li><a href='8d_employee.php'>Employee</a></li>
                                     </ul>";
                             } else {
                                 echo "<ul><br>
                                         <li><a href='8a_products.php'>Products</a></li>
                                         <li><a href='8b_customers.php'>Customers</a></li>
                                         <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                         
-                                        <li><a href='8D_employee.php'>Employee</a></li>
+                                        <li><a href='8d_employee.php'>Employee</a></li>
                                     </ul>";
                             }
                             echo "
@@ -53,8 +53,48 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>";      
-                        echo "</div>
+                        <div class='main'>";
+                        ?>
+                        <div class="top">
+                            <ul>
+                                <li><a href="8d1_search_employee.php">
+                                   Search Employee
+                                </a></li>
+                                <li><a href="8d2_add_employee.php">
+                                   Add Employee
+                                </a></li>
+                                <li><a href="8d3_update_employee.php">
+                                   Update Employee Details
+                                </a></li>
+                            </ul>
+                        </div>
+                        <br><h1>Search Employee</h1>
+                        <form method="POST">
+                            <br>
+                            <div class="field">
+                                <select name="criteria" required>
+                                    <option value="" disable select>Search By</option>
+                                    <option value="employee_id">Employee ID</option>
+                                    <option value="employee_name">Name</option>
+                                    <option value="position">Position</option>
+                                </select>   
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Next">
+                            </div>
+                        </form>
+                        <?php
+                            if (isset($_POST["criteria"])) {
+                                $criteria=$_POST["criteria"];
+                                if ($criteria=="employee_id")
+                                    header("Location: 8d1a_search_by_employee_id.php");
+                                else if ($criteria=="employee_name")
+                                    header("Location: 8d1b_search_by_employee_name.php");
+                                else if ($criteria=="position")
+                                    header("Location: 8d1c_search_by_position.php");
+                            }
+                        echo "
+                        </div>
                     </div>
                 ";
             } else {
@@ -67,4 +107,4 @@
         }
     ?>
     </body>
-</html>
+</html>                   

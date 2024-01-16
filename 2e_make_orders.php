@@ -20,8 +20,8 @@
                 $name = $row1["b_name"];
                 $country = $row1["b_country"];
                 echo "<div class='container'>
-                        <div class='left'><br><br>
-                            $name, $country";
+                        <div class='left'>
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
                             if ($_SESSION["position"]=="Regular") {
                                 echo "<ul><br>
                                         <li><a href='2a_check_spares.php'>Check Spares</a></li>
@@ -45,6 +45,8 @@
                                         <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
                                         <li><a href='2e_make_orders.php'>Make Orders</a></li>
                                         <li><a href='2f_update_production_details.php'>Update Production Details</a></li>
+                                        <li><a href='2g_view_manufactures.php'>View Manufactures</a></li>
+                                        <li><a href='2h_transport_products.php'>Transport Products</a></li>
                                     </ul>";
                             }
                             echo "
@@ -62,16 +64,21 @@
                         <br><br><h1>Make Orders</h1>
                         <form method="POST">
                             <br><br>
-                            <label for="spare_id">Spare ID:</label>
-                            <input type="number" name="spare_id" required>
-                            <br><br>
-                            <label for="quantity">Quantity:</label>
+                            <div class="field">
+                                <input type="number" name="spare_id" required>
+                                <label for="spare_id">Spare ID</label>
+                            </div>
+                            <div class="field">
                             <input type="number" name="quantity" required>
-                            <br><br>
-                            <label for="supplier_id">Supplier ID:</label>
-                            <input type="number" name="supplier_id" required>
-                            <br><br>
-                            <input type="submit" value="Submit Order">
+                                <label for="quantity">Quantity</label>
+                            </div>
+                            <div class="field">
+                                <input type="number" name="supplier_id" required>
+                                <label for="supplier_id">Supplier ID</label>
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Submit Order">
+                            </div>
                         </form>
                         <?php
                             if (isset($_POST["supplier_id"])) {

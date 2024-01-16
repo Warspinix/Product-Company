@@ -1,0 +1,81 @@
+COMPANY
+
+141 - Design
+142 - Production
+143 - Factory
+144 - Warehouse
+145 - Store
+146 - Operations
+147 - Engineering
+148 - Showroom
+149 - Service Centre
+
+///
+
+(140000, 'Apple Park', '10600 N Tantau Ave', 'Cupertino', '95014', 'California', 'USA');
+
+///
+
+----------------------------------------------
+
+SUPPLIERS
+
+file:///C:/Users/Yuvi/Desktop/Apple-Supplier-List.html
+
+PROJECT
+
+121 - iPhone
+122 - iPad
+123 - MacBook
+124 - Apple Watch
+125 - HomePod
+126 - AirPods
+127 - Mac
+128 - Apple Pencil
+129 - Other accessories (cables, adapters, etc...)
+
+EMPLOYEE
+
+https://www.apple.com/careers/pdf/HBR_How_Apple_Is_Organized_For_Innovation-4.pdf
+
+Actual Positions: 
+
+1) ICT2
+2) ICT3
+3) ICT4, 
+4) ICT5, 
+5) ICT6, 
+6) CTO
+7) Director
+8) CFO
+9) CEO
+
+Our Implementation:
+
+1) Regular (ICT2, ICT3, ICT4)
+2) Manager (ICT5, ICT6)
+3) Higher Officials - CEO, Admin, etc.
+
+Roles: Design, Hardware Engineering, Hardware Technologies, Software, Services, Machine Learning and AI, Marketing, Operations, Sales, Retail, People, Finance, Legal, (Environment, Policy & Social), Corporate Development
+
+131 - Design
+132 - Production
+133 - Finance
+134 - Storage
+135 - Marketing
+136 - Testing
+137 - Software
+138 - Sales and Retail
+139 - Service
+
+PRODUCT
+
+121 - iPhone
+122 - iPad
+123 - MacBook
+124 - Apple Watch
+125 - HomePod
+126 - AirPods
+127 - Mac
+128 - Apple Pencil
+129 - Other accessories (cables, adapters, etc...)

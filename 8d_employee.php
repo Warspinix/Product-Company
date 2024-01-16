@@ -21,25 +21,27 @@
                 $country = $row1["b_country"];
                 echo "<div class='container'>
                         <div class='left'>
-                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>
+                            ";
                             if ($_SESSION["position"]=="Regular") {
                                 echo "<ul><br>
-                                        <li><a href='1a_view_projects.php'>View Ongoing Projects</a></li>
-                                        <li><a href=''></a></li>
-                                        <li><a href=''></a></li>
+                                        <li><a href='8a_products.php'>Products</a></li>
+                                        <li><a href='8b_customers.php'>Customers</a></li>
+                                        <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                        
                                     </ul>";
                             } else if ($_SESSION["position"]=="Manager") {
                                 echo "<ul><br>
-                                        <li><a href='1a_view_projects.php'>View Ongoing Projects</a></li>
-                                        <li><a href='1b_view_employees.php'>View Employees</a></li>
-                                        <li><a href=''></a></li>
+                                        <li<a href='8a_products.php'>Products</a></li>
+                                        <li><a href='8b_customers.php'>Customers</a></li>
+                                        <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                         
+                                        <li><a href='8d_employee.php'>Employee</a></li>
                                     </ul>";
                             } else {
                                 echo "<ul><br>
-                                        <li><a href='1a_view_projects.php'>View Ongoing Projects</a></li>
-                                        <li><a href='1a_view_projects.php'>View Employees</a></li>
-                                        <li><a href='1_add_employees.php'>Add Employee to Project</a></li>
-                                        <li><a href=''></a></li>
+                                        <li><a href='8a_products.php'>Products</a></li>
+                                        <li><a href='8b_customers.php'>Customers</a></li>
+                                        <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                         
+                                        <li><a href='8d_employee.php'>Employee</a></li>
                                     </ul>";
                             }
                             echo "
@@ -53,23 +55,27 @@
                             </div>
                         </div>
                         <div class='main'>";
-                            $q2 = "SELECT * FROM company";
-                            if ($res2=mysqli_query($link, $q2)) {
-                                if (mysqli_num_rows($res2) > 0) {
-                                    while ($row2=mysqli_fetch_array($res2)) {
-
-                                    }
-                                } else {
-                                    echo "<br><h1>No</h1>";
-                                }
-                            } else {
-                                die("<br>Error: ".mysqli_error($link));
-                            }           
-                        echo "</div>
+                        ?>
+                        <div class="top">
+                            <ul>
+                                <li><a href="8d1_search_employee.php">
+                                   Search Employee
+                                </a></li>
+                                <li><a href="8d2_add_employee.php">
+                                   Add Employee
+                                </a></li>
+                                <li><a href="8d3_update_employee.php">
+                                   Update Employee Details
+                                </a></li>
+                            </ul>
+                        </div>
+                        <?php
+                        echo "
+                        </div>
                     </div>
                 ";
             } else {
-                die("<br>Error: ".mysqli_error($link));
+                die("Error: ".mysqli_error($link));
             }
         } else {
             echo "<br><br><div style='text-align:center;'><h1>You aren't logged in.</h1><br>
@@ -78,4 +84,4 @@
         }
     ?>
     </body>
-</html>
+</html>                   

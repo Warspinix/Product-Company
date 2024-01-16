@@ -53,14 +53,49 @@
                             </div>
                         </div>
                         <div class='main'>";
-                            $q2 = "SELECT * FROM company";
+                            $q2="SELECT employee_id, fname, lname, position, 
+                                gender, dob, join_date, salary
+                                FROM employee
+                                WHERE branch_id=$_SESSION[branch_id]";
                             if ($res2=mysqli_query($link, $q2)) {
                                 if (mysqli_num_rows($res2) > 0) {
+                                    echo "
+                                    <br>
+                                    <h1>Employees</h1>
+                                    <br><br>
+                                    <table>
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Date of Birth</th>
+                                            <th>Gender</th>
+                                            <th>Join Date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    ";
                                     while ($row2=mysqli_fetch_array($res2)) {
-
+                                        if ($row2["gender"]=="M")
+                                            $gender="Male";
+                                        else if ($row2["gender"]=="F")
+                                            $gender= "Female";
+                                        else 
+                                            $gender= "Other";
+                                        echo "
+                                        <tr>
+                                            <td>$row2[employee_id]</td>
+                                            <td>$row2[fname] $row2[lname]</td>
+                                            <td>$row2[position]</td>
+                                            <td>$row2[dob]</td>
+                                            <td>$gender</td>
+                                            <td>$row2[join_date]</td>
+                                            <td>$row2[salary]</td>
+                                        </tr>";
                                     }
+                                    echo "
+                                    </table>";
                                 } else {
-                                    echo "<br><h1>No</h1>";
+                                    echo "<br><h1>No employees in the branch.</h1>";
                                 }
                             } else {
                                 die("<br>Error: ".mysqli_error($link));

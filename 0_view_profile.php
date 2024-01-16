@@ -5,25 +5,6 @@
     <head>
         <title></title>
         <link rel="stylesheet" href="style.css">
-        <style>
-            table, th, td {
-                border: 2px solid black;
-                border-collapse: collapse;
-                table-layout: fixed;
-                font-size: 18px;	
-                text-align: left;
-            }
-            table {
-                border-spacing: 30px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            th, td {
-                word-wrap: break-word;
-                max-width: 500px; 
-                padding: 15px;
-            }
-        </style>
     </head>
     <body>
     <?php
@@ -33,6 +14,7 @@
                 die("<br><br>Error connecting to database. Please try again later.");
             }
             $previous_page = $_SERVER["HTTP_REFERER"];
+            $name=
             $q1 = "SELECT *
                     FROM company
                     WHERE branch_id=$_SESSION[branch_id]";
@@ -41,11 +23,13 @@
                      WHERE employee_id='$_SESSION[id]'";
             if ($res1 = mysqli_query($link, $q1)) {
                 $row1 = mysqli_fetch_array($res1);
-                $branch = $row1["b_name"].", ".$row1["b_address"].", ".$row1["b_city"]." - ".$row1["b_code"]
-                            .", ".$row1["b_state"].", ".$row1["b_country"];
+                $branch = "$row1[b_name], $row1[b_address], $row1[b_city] - $row1[b_code]
+                            , $row1[b_state], $row1[b_country]";
+                $name=$row1["b_name"];
+                $country=$row1["b_country"];
                 echo "<div class='container'>
-                        <div class='left'><br><br>
-                            $row1[b_name], $row1[b_country]
+                        <div class='left'>
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>
                             <div class='profile-section'>
                                 <br>
                                 <div class='username'>

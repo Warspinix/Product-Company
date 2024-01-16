@@ -21,11 +21,11 @@
                 $country = $row1["b_country"];
                 echo "<div class='container'>
                         <div class='left'><br><br>
-                            $name, $country";
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
                             if ($_SESSION["position"]=="Regular") {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Ongoing Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4e_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -33,7 +33,7 @@
                             } else if ($_SESSION["position"]=="Manager") {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Ongoing Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4f_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -42,7 +42,7 @@
                             } else {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4f_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>

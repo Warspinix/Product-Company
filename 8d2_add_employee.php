@@ -21,7 +21,8 @@
                 $country = $row1["b_country"];
                 echo "<div class='container'>
                         <div class='left'>
-                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>
+                            ";
                             if ($_SESSION["position"]=="Regular") {
                                 echo "<ul><br>
                                         <li><a href='8a_products.php'>Products</a></li>
@@ -30,17 +31,17 @@
                                     </ul>";
                             } else if ($_SESSION["position"]=="Manager") {
                                 echo "<ul><br>
-                                        <li><a href='8a_products.php'>Products</a></li>
+                                        <li<a href='8a_products.php'>Products</a></li>
                                         <li><a href='8b_customers.php'>Customers</a></li>
                                         <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                         
-                                        <li><a href='8D_employee.php'>Employee</a></li>
+                                        <li><a href='8d_employee.php'>Employee</a></li>
                                     </ul>";
                             } else {
                                 echo "<ul><br>
                                         <li><a href='8a_products.php'>Products</a></li>
                                         <li><a href='8b_customers.php'>Customers</a></li>
                                         <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                         
-                                        <li><a href='8D_employee.php'>Employee</a></li>
+                                        <li><a href='8d_employee.php'>Employee</a></li>
                                     </ul>";
                             }
                             echo "
@@ -53,8 +54,42 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>";      
-                        echo "</div>
+                        <div class='main'>";
+                        ?>
+                        <div class="top">
+                            <ul>
+                                <li><a href="8d1_search_employee.php">
+                                   Search Employee
+                                </a></li>
+                                <li><a href="8d2_add_employee.php">
+                                   Add Employee
+                                </a></li>
+                                <li><a href="8d3_update_employee.php">
+                                   Update Employee Details
+                                </a></li>
+                            </ul>
+                        </div>
+                        <br><h1>Add Employee</h1>
+                        <form method="POST">
+                            <br>
+                            <div class="field">
+                                <input type="text" name="fname" required>
+                                <label for="fname">First Name</label>
+                            </div>
+                            <div class="field">
+                                <input type="text" name="lname" required>
+                                <label for="lname">Last Name</label>
+                            </div>  
+                            <div class="field">
+                            </div>
+                            <div class="field">
+                            </div>
+                            <div class="field">
+                            </div>
+                        </form>
+                        <?php
+                        echo "
+                        </div>
                     </div>
                 ";
             } else {
@@ -67,4 +102,4 @@
         }
     ?>
     </body>
-</html>
+</html>                   

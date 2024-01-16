@@ -33,14 +33,14 @@
                                         <li><a href='8a_products.php'>Products</a></li>
                                         <li><a href='8b_customers.php'>Customers</a></li>
                                         <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                         
-                                        <li><a href='8D_employee.php'>Employee</a></li>
+                                        <li><a href='8d_employee.php'>Employee</a></li>
                                     </ul>";
                             } else {
                                 echo "<ul><br>
                                         <li><a href='8a_products.php'>Products</a></li>
                                         <li><a href='8b_customers.php'>Customers</a></li>
                                         <li><a href='8c_bill_transaction.php'>Bills and Transactions</a></li>                                         
-                                        <li><a href='8D_employee.php'>Employee</a></li>
+                                        <li><a href='8d_employee.php'>Employee</a></li>
                                     </ul>";
                             }
                             echo "
@@ -53,7 +53,54 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>";      
+                        <div class='main'>";
+                        ?>
+                        <div class="top">
+                            <ul>
+                                <li><a href="8b1_search_customer.php">
+                                   Search Customer
+                                </a></li>
+                                <li><a href="8b2_add_customer.php">
+                                   Add Customer
+                                </a></li>
+                            </ul>
+                        </div>
+                        <br><h1>Search Customer</h1>
+                        <form method="POST">
+                            <br>
+                            <div class="field">
+                                <input type="number" name="phone_no" required>
+                                <label for="phone_no">Phone No.</label>
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Search">
+                            </div>
+                        </form>
+                        <?php
+                            if (isset($_POST["phone_no"])) {
+                                $phone_no=strval($_POST["phone_no"]);
+                                $q2="SELECT fname, lname, points FROM customer
+                                    WHERE phone_no='$phone_no'";
+                                if ($res2=mysqli_query($link, $q2)) {
+                                    if (mysqli_num_rows($res2)==1) {
+                                        $row2=mysqli_fetch_array($res2) ;
+                                        echo "
+                                        <table>
+                                            <tr>
+                                                <th>Customer Name</th>
+                                                <td>$row2[fname] $row2[lname]</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Points</th>
+                                                <td>$row2[points]</td>
+                                            </tr>";
+                                    } else {
+                                        echo "No customer found.";
+                                    }
+                                } else {
+                                    die("Error: ".mysqli_error($link));
+                                }
+                            }          
                         echo "</div>
                     </div>
                 ";

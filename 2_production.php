@@ -21,34 +21,37 @@
                 $name = $row1["b_name"];
                 $country = $row1["b_country"];
                 echo "<div class='container'>
-                        <div class='left'><br><br>".
-                        $name. ", ".$country;
-                        if ($_SESSION["position"]=="Regular") {
-                            echo "<ul><br>
-                                    <li><a href='2a_check_spares.php'>Check Spares</a></li>
-                                    <li><a href='2b_view_orders.php'>View Orders</a></li>
-                                    <li><a href='2c_view_production_details.php'>View Production Details</a></li>
-                                    <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
-                                </ul>";
-                        } else if ($_SESSION["position"]=="Manager") {
-                            echo "<ul><br>
-                                    <li><a href='2a_check_spares.php'>Check Spares</a></li>
-                                    <li><a href='2b_view_orders.php'>View Orders</a></li>
-                                    <li><a href='2c_view_production_details.php'>View Production Details</a></li>
-                                    <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
-                                    <li><a href='2e_make_orders.php'>Make Orders</a></li>
-                                </ul>";
-                        } else {
-                            echo "<ul><br>
-                                    <li><a href='2a_check_spares.php'>Check Spares</a></li>
-                                    <li><a href='2b_view_orders.php'>View Orders</a></li>
-                                    <li><a href='2c_view_production_details.php'>View Production Details</a></li>
-                                    <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
-                                    <li><a href='2e_make_orders.php'>Make Orders</a></li>
-                                    <li><a href='2f_update_production_details.php'>Update Production Details</a></li>
-                                </ul>";
-                        }
-                        echo "<div class='profile-section'>
+                        <div class='left'>
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
+                            if ($_SESSION["position"]=="Regular") {
+                                echo "<ul><br>
+                                        <li><a href='2a_check_spares.php'>Check Spares</a></li>
+                                        <li><a href='2b_view_orders.php'>View Orders</a></li>
+                                        <li><a href='2c_view_production_details.php'>View Production Details</a></li>
+                                        <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
+                                    </ul>";
+                            } else if ($_SESSION["position"]=="Manager") {
+                                echo "<ul><br>
+                                        <li><a href='2a_check_spares.php'>Check Spares</a></li>
+                                        <li><a href='2b_view_orders.php'>View Orders</a></li>
+                                        <li><a href='2c_view_production_details.php'>View Production Details</a></li>
+                                        <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
+                                        <li><a href='2e_make_orders.php'>Make Orders</a></li>
+                                    </ul>";
+                            } else {
+                                echo "<ul><br>
+                                        <li><a href='2a_check_spares.php'>Check Spares</a></li>
+                                        <li><a href='2b_view_orders.php'>View Orders</a></li>
+                                        <li><a href='2c_view_production_details.php'>View Production Details</a></li>
+                                        <li><a href='2d_log_supplies.php'>Log Supplies</a></li>
+                                        <li><a href='2e_make_orders.php'>Make Orders</a></li>
+                                        <li><a href='2f_update_production_details.php'>Update Production Details</a></li>
+                                        <li><a href='2g_view_manufactures.php'>View Manufactures</a></li>
+                                        <li><a href='2h_transport_products.php'>Transport Products</a></li>
+                                    </ul>";
+                            }
+                            echo "
+                            <div class='profile-section'>
                                 <div class='username'>
                                     <br>
                                     ".$_SESSION['fname']." ".$_SESSION['lname']."

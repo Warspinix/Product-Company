@@ -46,6 +46,7 @@
                                         <li><a href='2e_make_orders.php'>Make Orders</a></li>
                                         <li><a href='2f_update_production_details.php'>Update Production Details</a></li>
                                         <li><a href='2g_view_manufactures.php'>View Manufactures</a></li>
+                                        <li><a href='2i_view_nearby_warehouses.php'>View Nearby Warehouses</a></li>
                                         <li><a href='2h_transport_products.php'>Transport Products</a></li>
                                     </ul>";
                             }
@@ -61,78 +62,63 @@
                         </div>
                         <div class='main'>";
                         ?>
-                        <br><br><h1>Update Production Details</h1>
+                        <br><br><h1>Transport Products</h1>
                         <form method="POST">
                             <br><br>
                             <div class="field">
-                                <input type="number" name="project_id" min="121001" max="129999" required>
-                                <label for="project_id">Project ID</label>
+                                <input type="number" name="manufacture_id" required>
+                                <label for="manufacture_id">Manufacture ID</label>
                             </div>
-                            <div class="field">                          
-                                <input type="number" name="product_id" required>
-                                <label for="product_id">Product ID</label>
-                            </div>
-                            <div class="field">
-                                <input type="number" name="quantity" required>
-                                <label for="quantity">Quantity</label>
+                            <div class="field">                            
+                                <input type="number" name="destination_branch_id" required>
+                                <label for="destination_branch_id">Destination Branch ID</label>
                             </div>
                             <div class="submit">
                                 <input type="submit" value="Update">
                             </div>
                         </form>
                         <?php
-                            if (isset($_POST["quantity"])) {
-                                $project_id=$_POST["project_id"];
-                                $product_id=$_POST["product_id"];
-                                $quantity=$_POST["quantity"];
-                                $manufacture_date=date("Y-m-d");
-                                $q2="SELECT * FROM project
-                                    WHERE project_id=$project_id";
+                            if (isset($_POST["destination_branch_id"])) {
+                                $manufacture_id=$_POST["manufacture_id"];
+                                $destination_branch_id=$_POST["destination_branch_id"];
+                                $send_date=date("Y-m-d");
+                                $q2="SELECT * FROM manufactures 
+                                    WHERE manufacture_id=$manufacture_id
+                                    AND source_branch_id=$_SESSION[branch_id]";
                                 if ($res2=mysqli_query($link, $q2)) {
-                                    if (mysqli_num_rows($res2) == 1) {
-                                        $q3="SELECT * FROM product 
-                                            WHERE product_id=$product_id";
+                                    if (mysqli_num_rows($res2)==1) {
+                                        $q3="SELECT * FROM company
+                                            WHERE branch_id=$destination_branch_id";
                                         if ($res3=mysqli_query($link, $q3)) {
-                                            if (mysqli_num_rows($res3) == 1) {
-                                                $q3="SELECT * FROM project_product
-                                                    WHERE project_id=$project_id
-                                                    AND product_id=$_product_id";
-                                                if ($res3=mysqli_query($link, $q3)) {
-                                                    if (mysqli_num_rows($res3) == 1) {
-                                                        $q4="SELECT * FROM project_branch
-                                                            WHERE project_id=$project_id
-                                                            AND branch_id=$_SESSION[branch_id]
-                                                            AND end_date IS NOT NULL";
-                                                        if ($res4=mysqli_query($link, $q4)) {
-                                                            if (mysqli_num_rows($res4) == 1) {
-                                                                $q5="INSERT INTO manufactures
-                                                                (project_id, product_id, manufacture_date, source_branch_id, quantity)
-                                                                VALUES ($project_id, $product_id, $manufacture_date, $_SESSION[branch_id], $quantity)";
-                                                                if (mysqli_query($link, $q5)) {
-                                                                    echo "<br>Update Successful.";
-                                                                } else {
-                                                                    die("<br>Error: ".mysqli_error($link));  
-                                                                }
-                                                            } else {
-                                                                echo "<br>This project is not a part of our branch.";
-                                                            }
+                                            if (mysqli_num_rows($res3)==1) {
+                                                $row3=mysqli_fetch_array($res3);
+                                                if ($row3["branch_id"]>=144000 && $row3["branch_id"]<=144999) {
+                                                    $q4="INSERT INTO transports
+                                                        (manufacture_id, destination_branch_id, send_date)
+                                                        VALUES ($manufacture_id, $destination_branch_id, $send_date)";
+                                                    if (mysqli_query($link, $q4)) {
+                                                        $q5="UPDATE manufactures
+                                                            SET status='SENT'
+                                                            WHERE manufacture_id=$manufacture_id";
+                                                        if (mysqli_query($link, $q5)) {
+                                                            echo "<br>Transport Logged.";
                                                         } else {
-                                                            die("<br>Error: ".mysqli_error($link));  
+                                                            die("<br>Error: ".mysqli_error($link));
                                                         }
                                                     } else {
-                                                        echo "<br>Project ID and Product ID are not related.";
-                                                    }
+                                                        die("<br>Error: ".mysqli_error($link));
+                                                    }    
                                                 } else {
-                                                    die("<br>Error: ".mysqli_error($link));   
-                                                }                                                
+                                                    echo "<br>This branch is not a warehouse.";
+                                                }
                                             } else {
-                                                echo "<br>Product ID not found.";
+                                                echo "<br>Branch doesn't exist.";
                                             }
                                         } else {
                                             die("<br>Error: ".mysqli_error($link));
-                                        }                                            
+                                        }                
                                     } else {
-                                        echo "<br>Project ID not found.";
+                                        echo "Manufacture ID not found.";
                                     }
                                 } else {
                                     die("<br>Error: ".mysqli_error($link));

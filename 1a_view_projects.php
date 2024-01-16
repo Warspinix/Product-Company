@@ -37,7 +37,7 @@
                             } else {
                                 echo "<ul><br>
                                         <li><a href='1a_view_projects.php'>View Ongoing Projects</a></li>
-                                        <li><a href='1a_view_projects.php'>View Employees</a></li>
+                                        <li><a href='1b_view_employees.php'>View Employees</a></li>
                                         <li><a href='1_add_employees.php'>Add Employee to Project</a></li>
                                         <li><a href=''></a></li>
                                     </ul>";
@@ -53,14 +53,41 @@
                             </div>
                         </div>
                         <div class='main'>";
-                            $q2 = "SELECT * FROM company";
+                            $q2="SELECT p.project_id, project_name, pb.start_date, deadline
+                                FROM project p
+                                INNER JOIN project_branch pb
+                                ON p.project_id=pb.project_id
+                                INNER JOIN company c
+                                ON pb.branch_id=c.branch_id
+                                WHERE c.branch_id=$_SESSION[branch_id]";
                             if ($res2=mysqli_query($link, $q2)) {
                                 if (mysqli_num_rows($res2) > 0) {
+                                    echo "
+                                    <br>
+                                    <h1>Ongoing Projects</h1>
+                                    <br><br>
+                                    <table>
+                                        <tr>
+                                            <th>Project ID</th>
+                                            <th>Project Name</th>
+                                            <th>Start Date in Branch</th>
+                                            <th>Deadline</th>
+                                        </tr>
+                                    ";
                                     while ($row2=mysqli_fetch_array($res2)) {
-
+                                        echo "
+                                        <tr>
+                                            <th>$row2[project_id]/th>
+                                            <th>$row2[project_name]</th>
+                                            <th>$row2[start_date]</th>
+                                            <th>$row2[deadline]</th>
+                                        </tr>
+                                        ";
                                     }
+                                    echo "
+                                    </table>";
                                 } else {
-                                    echo "<br><h1>No</h1>";
+                                    echo "<br><h1>No ongoing projects.</h1>";
                                 }
                             } else {
                                 die("<br>Error: ".mysqli_error($link));

@@ -20,12 +20,12 @@
                 $name = $row1["b_name"];
                 $country = $row1["b_country"];
                 echo "<div class='container'>
-                        <div class='left'><br><br>
-                            $name, $country";
+                        <div class='left'>
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
                             if ($_SESSION["position"]=="Regular") {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Ongoing Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4e_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -33,7 +33,7 @@
                             } else if ($_SESSION["position"]=="Manager") {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Ongoing Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4f_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -42,7 +42,7 @@
                             } else {
                                 echo "<ul><br>
                                         <li><a href='4a_check_availability.php'>Check Availabilty</a></li>
-                                        <li><a href='4b_view_ongoing_transports.php'>View Ongoing Transports</a></li>
+                                        <li><a href='4b_view_transports.php'>View Transports</a></li>
                                         <li><a href='4e_view_showrooms.php'>View Showrooms</a></li>
                                         <li><a href='4f_view_dealers.php'>View Dealers</a><li>
                                         <li><a href='4c_receive_products.php'>Receive Products</a></li>
@@ -60,13 +60,17 @@
                             </div>
                         </div>
                         <div class='main'>
-                        <br><br><h1>Receive Products</h1>";
+                        <br><h1>Receive Products</h1>";
                         ?>
                         <form method="POST">
-                            <br><br>
-                            <input type="number" name="transport_id" min=1 placeholder="Transport ID" required>
-                            <br><br>
-                            <input type="submit" value="Receive">
+                            <br>
+                            <div class="field">
+                                <input type="number" name="transport_id" min=1 required>
+                                <label for="transport_id">Transport ID</label>
+                            </div>
+                            <div class="field">
+                                <input type="submit" value="Receive">
+                            </div>
                         </form>
                         <?php
                             if (isset($_POST["transport_id"])) {
@@ -86,6 +90,8 @@
                                         ON t.product_id=p.product_id
                                         INNER JOIN company c
                                         ON t.source_branch_id=c.branch_id
+                                        INNER JOIN manufactures m
+                                        ON t.manufacture_id=m.manufacture_id
                                         WHERE transport_id=$transport_id
                                         AND destination_branch_id=$destination_branch_id";
                                         if ($res3=mysqli_query($link, $q3)) {
@@ -116,6 +122,7 @@
                                                     WHERE branch_id=$_SESSION[branch_id]
                                                     AND product_id=$row3[product_id]";
                                                 if ($res4=mysqli_query($link, $q4)) {
+                                                    if (mysqli_num_rows($res4)==1) {
                                                     $row4=mysqli_fetch_array($res4);
                                                     $new_quantity=$row3["quantity"];
                                                     $actual_quantity=$row4["quantity"];
@@ -123,41 +130,44 @@
                                                         SET product_stock=$actual_quantity+$new_quantity
                                                         WHERE branch_id=$_SESSION[branch_id]
                                                         AND product_id=$row3[product_id]";
-                                                } else {
-                                                    $q5="INSERT INTO warehouse VALUES
-                                                        ($_SESSION[branch_id],$row3[product_id],$row3[quantity])";
-                                                }
-                                                if (mysqli_query($link, $q5)) {
-                                                    $q6="UPDATE transports
-                                                        SET manufacture_date=$date,
-                                                        status='RECEIVED'
-                                                        WHERE transport_id=$transport_id";
-                                                    if (mysqli_query($link, $q6)) {
-                                                        echo "$row3[quantity] units of $row3[product_name] successfully received.";
                                                     } else {
-                                                        die("<br><br>Error: ".mysqli_error($link));
+                                                        $q5="INSERT INTO warehouse VALUES
+                                                            ($_SESSION[branch_id],$row3[product_id],$row3[quantity])";
+                                                    }
+                                                    if (mysqli_query($link, $q5)) {
+                                                        $q6="UPDATE transports
+                                                            SET receive_date=$date,
+                                                            status='RECEIVED'
+                                                            WHERE transport_id=$transport_id";
+                                                        if (mysqli_query($link, $q6)) {
+                                                            echo "$quantity units of $row3[product_name] successfully received.";
+                                                        } else {
+                                                            die("Error: ".mysqli_error($link));
+                                                        }
+                                                    } else {
+                                                        die("Error: ".mysqli_error($link));
                                                     }
                                                 } else {
-                                                    die("<br><br>Error: ".mysqli_error($link));
+                                                    die("Error: ".mysqli_error($link));
                                                 }
                                             } else {
                                                 echo "<br>This transport is not associated with this branch.";
                                             }
                                         } else {
-                                            die("<br><br>Error: ".mysqli_error($link));
+                                            die("Error: ".mysqli_error($link));
                                         } 
                                     } else {
                                         echo "<br>Transport ID not found.";
                                     }
                                 } else {
-                                    die("<br><br>Error: ".mysqli_error($link));
+                                    die("Error: ".mysqli_error($link));
                                 }   
                             }          
                         echo "</div>
                     </div>
                 ";
             } else {
-                die("<br><br>Error: ".mysqli_error($link));
+                die("Error: ".mysqli_error($link));
             }
         } else {
             echo "<br><br><div style='text-align:center;'><h1>You aren't logged in.</h1><br>

@@ -8,20 +8,11 @@ CREATE TABLE company (
 	b_country varchar(15) NOT NULL
 );
 
-141 - Design
-142 - Production
-143 - Factory
-144 - Warehouse
-145 - Store
-146 - Operations
-147 - Engineering
-148 - Showroom
-149 - Service Centre
 
 DESC company;
 
 INSERT INTO company VALUES (141001, 'Apple Inc. Design', '121, XXX Street, YYY Nagar', 'Chennai', '600062', 'Tamil Nadu', 'India');
-INSERT INTO company VALUES (142002 'Apple Inc. Production', '223, XYZ Street, MMM Avenue', 'Miami', '33101', 'Florida', 'USA');
+INSERT INTO company VALUES (142002, 'Apple Inc. Production', '223, XYZ Street, MMM Avenue', 'Miami', '33101', 'Florida', 'USA');
 INSERT INTO company VALUES (148003, 'Apple Inc. Showroom', '96, AAA Street, MOL Nagar', 'Mumbai', '400056', 'Maharashtra', 'India');
 INSERT INTO company VALUES (143004, 'Apple Inc. Factory', '88, OMG Street, REK Nagar', 'Hyderabad', '500005', 'Telangana', 'India');
 INSERT INTO company VALUES (144005, 'Apple Inc. Warehouse', '127, LEO Street, INN Avenue', 'Brisbane', '4007', 'Queensland', 'Australia');
@@ -33,16 +24,11 @@ INSERT INTO company VALUES (149010, 'Apple Inc. Service Centre', '23, DEF Street
 INSERT INTO company VALUES (143011, 'Apple Inc. Factory', '63, RFG Street, CCC Town', 'Toronto', '33101', 'Ontario', 'Canada');
 INSERT INTO company VALUES (145001, 'Apple Inc. Store', '343, JOB Street, STV Avenue', 'New York City', '10038', 'New York', 'USA');
 
-///
-
-(140000, 'Apple Park', '10600 N Tantau Ave', 'Cupertino', '95014', 'California', 'USA');
-
-///
 
 INSERT INTO company VALUES 
 (141002, 'Apple Inc. Design', '55, Avenue des Champs-Élysées', 'Paris', '75008', 'Île-de-France', 'France'),
 (141003, 'Apple Inc. Design', 'Tokyo Midtown, 9-7-1 Akasaka', 'Minato City', '107-0052', 'Tokyo', 'Japan'),
-(142002, 'Apple Inc. Production', 'Bartın Yolu Cd. No: 101', 'Istanbul', '34520', 'Istanbul', 'Turkey'),
+(142001, 'Apple Inc. Production', 'Bartın Yolu Cd. No: 101', 'Istanbul', '34520', 'Istanbul', 'Turkey'),
 (142003, 'Apple Inc. Production', 'No. 3, Siam Cement Road', 'Bangkok', '10330', 'Bangkok', 'Thailand'),
 (143001, 'Apple Inc. Factory', '23 Kukatpally Housing Board Colony', 'Hyderabad', '500005', 'Telangana', 'India'),
 (143002, 'Apple Inc. Factory', 'Rua Olimpíadas, 205 - 4 andar', 'Sao Paulo', '04551-000', 'Sao Paulo', 'Brazil'),
@@ -50,9 +36,9 @@ INSERT INTO company VALUES
 (144001, 'Apple Inc. Warehouse', '145, Anna Salai', 'Chennai', '625007', 'Tamil Nadu', 'India'),
 (144002, 'Apple Inc. Warehouse', 'Kasumigaseki 1-chome', 'Tokyo', '100-8914', 'Tokyo', 'Japan'),
 (144003, 'Apple Inc. Warehouse', 'Kallang Ave, #07-01 Aperia', 'Singapore', '339509', 'Singapore', 'Singapore'),
-(145001, 'Apple Inc. Store', '221, Regent Street', 'London', 'W1B 4JE', 'England', 'United Kingdom'),
-(145002, 'Apple Inc. Store', 'Platz am Rothenbaum 1', 'Hamburg', '20146', 'Hamburg', 'Germany'),
-(145003, 'Apple Inc. Store', 'Roppongi Hills Mori Tower', 'Tokyo', '106-6140', 'Tokyo', 'Japan'),
+(145002, 'Apple Inc. Store', '221, Regent Street', 'London', 'W1B 4JE', 'England', 'United Kingdom'),
+(145003, 'Apple Inc. Store', 'Platz am Rothenbaum 1', 'Hamburg', '20146', 'Hamburg', 'Germany'),
+(145004, 'Apple Inc. Store', 'Roppongi Hills Mori Tower', 'Tokyo', '106-6140', 'Tokyo', 'Japan'),
 (146001, 'Apple Inc. Operations', '123 Church Street', 'Bloemfontein', '9300', 'Free State', 'South Africa'),
 (146002, 'Apple Inc. Operations', 'Calle del Conde de Peñalver, 38', 'Madrid', '28006', 'Madrid', 'Spain'),
 (146003, 'Apple Inc. Operations', 'Collins Street, Docklands', 'Melbourne', '3008', 'Victoria', 'Australia'),
@@ -61,12 +47,12 @@ INSERT INTO company VALUES
 (147003, 'Apple Inc. Engineering', '1155 Robert Bourassa Blvd', 'Montreal', 'H3B 3A7', 'Quebec', 'Canada'),
 (148001, 'Apple Inc. Showroom', 'High Street Phoenix, Lower Parel', 'Mumbai', '400056', 'Maharashtra', 'India'),
 (148002, 'Apple Inc. Showroom', 'Via Santa Margherita', 'Milan', '20121', 'Lombardy', 'Italy'),
-(148003, 'Apple Inc. Showroom', 'Paragon, 290 Orchard Rd', 'Singapore', '238859', 'Singapore', 'Singapore'),
+(148004, 'Apple Inc. Showroom', 'Paragon, 290 Orchard Rd', 'Singapore', '238859', 'Singapore', 'Singapore'),
 (149001, 'Apple Inc. Service Centre', '1 Esplanade East', 'Kolkata', '700001', 'West Bengal', 'India'),
 (149002, 'Apple Inc. Service Centre', 'Damrak 1-5', 'Amsterdam', '1012 LH', 'North Holland', 'Netherlands'),
 (149003, 'Apple Inc. Service Centre', '15 Av. Des Grandes Ecoles', 'Rennes', '35000', 'Brittany', 'France');
 
-----------------------------------------------
+
 
 CREATE TABLE spares (
 	spare_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -87,7 +73,7 @@ INSERT INTO spares (part_name) VALUES
 ('3 nm Chip'),
 ('5 nm Chip');
 
-----------------------------------------------
+
 
 CREATE TABLE branch_spares (
 	branch_id INT NOT NULL,
@@ -95,14 +81,13 @@ CREATE TABLE branch_spares (
 	quantity INT NOT NULL
 );
 
-----------------------------------------------
+
 
 CREATE TABLE suppliers (
 	supplier_id INT PRIMARY KEY AUTO_INCREMENT,
 	supplier_name VARCHAR(60) NOT NULL
 );
 
-file:///C:/Users/Yuvi/Desktop/Apple-Supplier-List.html
 
 INSERT INTO suppliers (supplier_name) VALUES
 ('3M'),
@@ -188,14 +173,14 @@ INSERT INTO suppliers (supplier_name) VALUES
 ('Zhen Ding Technology Holding Limited'),
 ('Zhuhai CosMX Battery Co., Ltd');
 
-----------------------------------------------
+
 
 CREATE TABLE spares_suppliers (
 	spare_id INT NOT NULL,
 	supplier_id INT NOT NULL
 );
 
-----------------------------------------------
+
 
 CREATE TABLE orders (
 	order_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -207,7 +192,7 @@ CREATE TABLE orders (
 	status VARCHAR(10) DEFAULT 'INCOMPLETE' NOT NULL
 );	
 
-----------------------------------------------
+
 
 CREATE TABLE supplies (
 	supply_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -216,7 +201,7 @@ CREATE TABLE supplies (
 	quantity INT NOT NULL
 );
 
-----------------------------------------------
+
 
 CREATE TABLE project (
 	project_id INT PRIMARY KEY,
@@ -228,15 +213,7 @@ CREATE TABLE project (
 	status VARCHAR(20) DEFAULT 'BEGUN' NOT NULL
 );
 
-121 - iPhone
-122 - iPad
-123 - MacBook
-124 - Apple Watch
-125 - HomePod
-126 - AirPods
-127 - Mac
-128 - Apple Pencil
-129 - Other accessories (cables, adapters, etc...)
+
 
 INSERT INTO project (project_id, project_name, start_date, deadline, end_date, allocated_budget) VALUES
 (128001, 'Apple Pencil Production', '2022-12-20', '2023-06-30', '2023-05-07', 100000),
@@ -270,23 +247,25 @@ INSERT INTO project (project_id, project_name, start_date, deadline, end_date, a
 (127008, 'Mac Pro Production', '2023-03-25', '2023-10-15', null, 1500000),
 (122006, 'iPad mini Assembly', '2023-01-05', '2023-07-15', null, 350000);
 
-----------------------------------------------
+
 
 CREATE TABLE project_branch (
 	project_id INT NOT NULL,
 	branch_id INT NOT NULL,
-	start_date DATE NOT NULL
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL
 );	
 
-----------------------------------------------
+
 
 CREATE TABLE project_spares (
 	project_id INT NOT NULL,
 	spare_id INT NOT NULL,
 	quantity INT NOT NULL,
+	use_date DATE NOT NULL
 );	
 
-----------------------------------------------
+
 
 CREATE TABLE employee (
 	employee_id VARCHAR(8) PRIMARY KEY,
@@ -307,37 +286,7 @@ ALTER TABLE employee
 ADD FOREIGN KEY(branch_id) 
 REFERENCES company(branch_id);
 
-https://www.apple.com/careers/pdf/HBR_How_Apple_Is_Organized_For_Innovation-4.pdf
 
-Actual Positions: 
-
-1) ICT2
-2) ICT3
-3) ICT4, 
-4) ICT5, 
-5) ICT6, 
-6) CTO
-7) Director
-8) CFO
-9) CEO
-
-Our Implementation:
-
-1) Regular (ICT2, ICT3, ICT4)
-2) Manager (ICT5, ICT6)
-3) Higher Officials - CEO, Admin, etc.
-
-Roles: Design, Hardware Engineering, Hardware Technologies, Software, Services, Machine Learning and AI, Marketing, Operations, Sales, Retail, People, Finance, Legal, (Environment, Policy & Social), Corporate Development
-
-131 - Design
-132 - Production
-133 - Finance
-134 - Storage
-135 - Marketing
-136 - Testing
-137 - Software
-138 - Sales and Retail
-139 - Service
 
 INSERT INTO employee VALUES 
 ('13100001', 'ZR3yT9pLmHsFvXw', 'Eva', 'Anderson', 'Regular', '9876543210', '13100001.eva@apple.com', 'F', '1990-12-22', '2023-01-31', 110000, 141001),
@@ -368,28 +317,37 @@ INSERT INTO employee VALUES
 ('13900002', 'V2sF5bP8cQ7rL3x', 'Elijah', 'Porter', 'Manager', '723456789', '13900002.elijah@apple.com', 'M', '1974-01-01', '2011-02-28', 45000, 149006),
 ('13900003', 'K9mP4vH2sL7qR5c', 'Harper', 'Cooper', 'Director', '987654321', '13900003.harper@apple.com', 'M', '1966-07-07', '1988-03-03', 63000, 149006);
 
-----------------------------------------------
+
 
 CREATE TABLE employee_speciality (
 	employee_id INT NOT NULL,
 	speciality VARCHAR(30) NOT NULL
 );
 
-----------------------------------------------
+
+
+CREATE TABLE employee_branch (
+	employee_id INT NOT NULL,
+	branch_id VARCHAR(8) NOT NULL
+);
+
+
 
 CREATE TABLE employee_project (
 	employee_id INT NOT NULL,
 	project_id INT NOT NULL,
-	start_date DATE NOT NULL
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL
 );
 
-----------------------------------------------
+
 
 CREATE TABLE customer (
 	phone_no VARCHAR(15) PRIMARY KEY,
 	fname VARCHAR(30) NOT NULL,
 	lname VARCHAR(30) NOT NULL,
-	email_id VARCHAR(255) NOT NULL
+	email_id VARCHAR(255) NOT NULL,
+	points INT NOT NULL DEFAULT 0
 );
 
 INSERT INTO Customer (phone_no, fname, lname, email_id) VALUES 
@@ -419,7 +377,7 @@ INSERT INTO Customer (phone_no, fname, lname, email_id) VALUES
 ('8901234567', 'Ella', 'Larsson', 'ella.larsson@gmail.com'), 
 ('5678901234', 'Rahul', 'Choi', 'rahul.choi@gmail.com');
 
-----------------------------------------------
+
 
 CREATE TABLE product (
 	product_id INT PRIMARY KEY,
@@ -428,15 +386,6 @@ CREATE TABLE product (
 	warranty VARCHAR(20) NOT NULL
 );
 
-121 - iPhone
-122 - iPad
-123 - MacBook
-124 - Apple Watch
-125 - HomePod
-126 - AirPods
-127 - Mac
-128 - Apple Pencil
-129 - Other accessories (cables, adapters, etc...)
 
 INSERT INTO product (product_id, product_name, specifications, warranty) VALUES 
 (111001, 'iPhone 15', 'A17 Bionic chip, upgraded cameras, potential design changes', '6 months'),
@@ -469,36 +418,56 @@ INSERT INTO product (product_id, product_name, specifications, warranty) VALUES
 (119011, 'USB-C to MagSafe 3 Cable (2m)', 'Charges MacBooks with MagSafe ports. Fast charging and secure magnetic connection.', '1 year');
 
 
-----------------------------------------------
+
 
 CREATE TABLE project_product (
 	project_id INT NOT NULL,
 	product_id INT NOT NULL
 );
-	
-----------------------------------------------
+
+
+
+CREATE TABLE manufactures (
+	manufacture_id INT PRIMARY KEY AUTO_INCREMENT,
+	project_id INT NOT NULL,
+	product_id INT NOT NULL,
+	manufacture_date INT NOT NULL,
+	source_branch_id INT NOT NULL,
+	quantity INT NOT NULL,
+	status VARCHAR(8) NOT NULL DEFAULT 'NOT SENT'
+);
+
+
 
 CREATE TABLE transports (
 	transport_id INT PRIMARY KEY AUTO_INCREMENT,
-	product_id INT NOT NULL,
-	source_branch_id INT NOT NULL,
+	manufacture_id INT NOT NULL,
 	destination_branch_id INT NOT NULL,
-	quantity INT NOT NULL,
-	manufacture_date DATE NOT NULL,
+	send_date DATE NOT NULL,
 	receive_date DATE,
 	status VARCHAR(12) NOT NULL DEFAULT 'NOT RECEIVED'
 );
 
-----------------------------------------------
+
+
+
+
+
 
 CREATE TABLE product_country_prices (
 	product_id INT NOT NULL,
 	country VARCHAR(15) NOT NULL,
-	price INT NOT NULL,
+	price INT NOT NULL
+);
+
+
+
+CREATE TABLE country_currency (
+	country VARCHAR(15) NOT NULL,
 	currency VARCHAR(10) NOT NULL
 );
 	
-----------------------------------------------
+
 
 CREATE TABLE warehouse (
 	branch_id INT NOT NULL,
@@ -506,28 +475,16 @@ CREATE TABLE warehouse (
 	product_stock INT NOT NULL
 );
 
-----------------------------------------------
+
 
 CREATE TABLE showroom (
 	branch_id INT NOT NULL,
 	product_id INT NOT NULL,
 	product_stock INT NOT NULL,
+	manufacture_date DATE NOT NULL
 );
 
-----------------------------------------------
 
-CREATE TABLE warehouse_to_showroom (
-	ws_id INT PRIMARY KEY AUTO_INCREMENT,
-	product_id INT NOT NULL,
-	source_branch_id INT NOT NULL,
-	destination_branch_id INT NOT NULL,
-	quantity INT NOT NULL,
-	send_date DATE NOT NULL,
-	receive_date DATE,
-	status VARCHAR(12) NOT NULL DEFAULT 'NOT RECEIVED'
-);
-
-----------------------------------------------
 
 CREATE TABLE dealer (
 	dealer_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -541,20 +498,22 @@ CREATE TABLE dealer (
 	d_country varchar(15) NOT NULL
 );	
 
-----------------------------------------------
 
-CREATE TABLE warehouse_to_dealer (
-	wd_id INT PRIMARY KEY AUTO_INCREMENT,
+
+CREATE TABLE warehouse_transports (
+	warehouse_transport_id INT PRIMARY KEY AUTO_INCREMENT,
 	product_id INT NOT NULL,
 	source_branch_id INT NOT NULL,
-	destination_dealer_id INT NOT NULL,
+	destination_branch_id INT,
+	destination_dealer_id INT,
+	destination_type VARCHAR(8) NOT NULL,
 	quantity INT NOT NULL,
 	send_date DATE NOT NULL,
 	receive_date DATE,
 	status VARCHAR(12) NOT NULL DEFAULT 'NOT RECEIVED'
 );
 
-----------------------------------------------
+
 
 CREATE TABLE dealer_product_branch (
 	dealer_id INT NOT NULL,
@@ -563,7 +522,7 @@ CREATE TABLE dealer_product_branch (
 	quantity INT NOT NULL
 );
 
-----------------------------------------------
+
 
 CREATE TABLE bill (
 	bill_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -573,25 +532,28 @@ CREATE TABLE bill (
 	date_issued DATE NOT NULL
 );
 
-----------------------------------------------
+
 
 CREATE TABLE bill_product (
-	bill_id INT PRIMARY KEY AUTO_INCREMENT,
+	bill_id INT NOT NULL,
 	product_id INT NOT NULL,
-	quantity INT NOT NULL
+	quantity INT NOT NULL,
+	manufacture_date DATE NOT NULL,
+	status VARCHAR(6) NOT NULL DEFAULT 'UNPAID'
 );
 
-----------------------------------------------
+
 
 CREATE TABLE transaction (
 	transaction_id INT PRIMARY KEY AUTO_INCREMENT,
 	bill_id INT NOT NULL,
-	transaction_date DATE NOT NULL,
-	total_amount INT NOT NULL,
-	payment_method VARCHAR(30) NOT NULL
+	transaction_date DATE,
+	total_amount INT,
+	payment_method VARCHAR(30) NOT NULL,
+	status VARCHAR(14) NOT NULL DEFAULT 'NOT SUCCESSFUL'
 );
 
-----------------------------------------------
+
 
 CREATE TABLE service_centre (
 	service_id INT PRIMARY KEY,
@@ -602,5 +564,3 @@ CREATE TABLE service_centre (
 	deadline DATE NOT NULL,
 	end_date DATE
 );
-
-----------------------------------------------
