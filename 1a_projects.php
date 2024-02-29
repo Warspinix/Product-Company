@@ -47,8 +47,40 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>       
-                        <br><h1>Welcome, $_SESSION[fname] $_SESSION[lname]!</h1><br>           
+                        <div class='main'>
+                        <div class=top>";
+                            if ($_SESSION["position"]=="Regular") {
+                                echo "<ul>
+                                    <li><a href='1a1_view_ongoing_projects.php'>
+                                        View Ongoing Projects
+                                    </a></li>                                   
+                                </ul>";
+                            } else if ($_SESSION["position"]=="Manager") {
+                                echo "<ul>
+                                    <li><a href='1a1_view_ongoing_projects.php'>
+                                        View Ongoing Projects
+                                    </a></li>
+                                    <li><a href='1a4_view_employees_in_project.php'>
+                                        View Employees in Project       
+                                    </a></li>
+                                </ul>";
+                            } else {
+                                echo "<ul>
+                                    <li><a href='1a1_view_ongoing_projects.php'>
+                                        View Ongoing Projects
+                                    </a></li>
+                                    <li><a href='1a2_add_employee_to_project.php'>
+                                        Add Employee to Project                                    
+                                    </a></li>
+                                    <li><a href='1a3_remove_employee_from_project.php'>
+                                        Remove Employee from Project                                        
+                                    </a></li>
+                                    <li><a href='1a4_view_employees_in_project.php'>
+                                        View Employees in Project       
+                                    </a></li>
+                                </ul>";
+                            }      
+                        echo "</div>
                         </div>
                     </div>
                 ";

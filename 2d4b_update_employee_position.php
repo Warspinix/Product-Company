@@ -3,16 +3,15 @@
 ?>
 <html>
     <head>
-        <title>Production</title>
+        <title>Update Employee Position</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
     <?php
         if(isset($_SESSION["id"])) {
             $link = mysqli_connect("localhost","root","","product_company");
-            if ($link == FALSE) {
+            if ($link == FALSE)
                 die("<br><br>Error connecting to database. Please try again later.");
-            }
             $q1 = "SELECT b_name, b_country 
                     FROM company
                     WHERE branch_id=$_SESSION[branch_id]";
@@ -46,21 +45,78 @@
                             }
                             echo "
                             <div class='profile-section'>
+                                <br>
                                 <div class='username'>
-                                    <br>
-                                    ".$_SESSION['fname']." ".$_SESSION['lname']."
+                                    $_SESSION[fname] $_SESSION[lname]
                                 </div>
                                     <a href='0_view_profile.php'><button class='edit-button'>View Profile</button></a>
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
                         <div class='main'>
-                            <br><h1>Welcome, $_SESSION[fname] $_SESSION[lname]!</h1><br>           
+                        <div class=top>";
+                        if ($_SESSION["position"]=="Manager") {
+                            echo "<ul>
+                                <li><a href='2d1_view_employees.php'>
+                                    View All Employees
+                                </a></li>
+                                <li><a href=2d3_add_employee.php>
+                                    Add Employee
+                                </a></li>
+                            </ul>";
+                        }
+                        else {
+                            echo "<ul>
+                                <li><a href='2d1_view_employees.php'>
+                                    View All Employees
+                                </a></li>
+                                <li><a href='2d2_search_employees.php'>
+                                    Search Employee
+                                </a></li>
+                                <li><a href='2d3_add_employee.php'>
+                                    Add Employee
+                                </a></li>
+                                <li><a href='2d4_update_employee.php'>
+                                    Update Employee Details
+                                </a></li>
+                            </ul>";
+                        }
+                        echo "
+                        </div>";
+                        ?>
+                        <br><h1>Update Employee Position</h1>
+                        <form method="POST">
+                            <br>
+                            <div class="field">
+                                <select name="position" required>
+                                    <option value="" disable select>Select Position</option>
+                                    <option value="Regular">Regular</option>
+                                    <option value="Manager">Manager</option>
+                                </select>
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Update">
+                            </div>
+                        </form>
+                        <?php
+                            if (isset($_POST["position"])) {
+                                $employee_id=$_SESSION["employee_id"];
+                                $position=$_POST["position"];
+                                $q2="UPDATE employee
+                                    SET position='$position'
+                                    WHERE employee_id='$employee_id'";
+                                if (mysqli_query($link, $q2)) {
+                                    echo "Update Successful.";
+                                } else {
+                                    die("Error: ".mysqli_error($link));
+                                }
+                            }
+                        echo "
                         </div>
                     </div>
                 ";
             } else {
-                die("<br><br>Error: ".mysqli_error($link));
+                die("Error: ".mysqli_error($link));
             }
         } else {
             echo "<br><br><div style='text-align:center;'><h1>You aren't logged in.</h1><br>
@@ -69,4 +125,4 @@
         }
     ?>
     </body>
-</html>
+</html>                   

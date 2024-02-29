@@ -3,7 +3,7 @@
 ?>
 <html>
     <head>
-        <title></title>
+        <title>Update Employee Salary</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -47,13 +47,67 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>       
-                        <br><h1>Welcome, $_SESSION[fname] $_SESSION[lname]!</h1><br>           
+                        <div class='main'>
+                        <div class=top>";
+                        if ($_SESSION["position"]=="Manager") {
+                            echo "<ul>
+                                <li><a href='1b1_view_employees.php'>
+                                    View All Employees
+                                </a></li>
+                                <li><a href=1b3_add_employee.php>
+                                    Add Employee
+                                </a></li>
+                            </ul>";
+                        }
+                        else {
+                            echo "<ul>
+                                <li><a href='1b1_view_employees.php'>
+                                    View All Employees
+                                </a></li>
+                                <li><a href='1b2_search_employees.php'>
+                                    Search Employee
+                                </a></li>
+                                <li><a href='1b3_add_employee.php'>
+                                    Add Employee
+                                </a></li>
+                                <li><a href='1b4_update_employee.php'>
+                                    Update Employee Details
+                                </a></li>
+                            </ul>";
+                        }
+                        echo "
+                        </div>";
+                        ?>
+                        <br><h1>Update Employee Salary</h1>
+                        <form method="POST">
+                            <br>
+                            <div class="field">
+                                <input type="number" name="salary" required>
+                                <label for="salary">New Salary</label>
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Update">
+                            </div>
+                        </form>
+                        <?php
+                            if (isset($_POST["salary"])) {
+                                $employee_id=$_SESSION["employee_id"];
+                                $salary=$_POST["salary"];
+                                $q2="UPDATE employee
+                                    SET salary='$salary'
+                                    WHERE employee_id='$employee_id'";
+                                if (mysqli_query($link, $q2)) {
+                                    echo "Update Successful.";
+                                } else {
+                                    die("Error: ".mysqli_error($link));
+                                }
+                            }
+                        echo "
                         </div>
                     </div>
                 ";
             } else {
-                die("<br>Error: ".mysqli_error($link));
+                die("Error: ".mysqli_error($link));
             }
         } else {
             echo "<br><br><div style='text-align:center;'><h1>You aren't logged in.</h1><br>
@@ -62,4 +116,4 @@
         }
     ?>
     </body>
-</html>
+</html>                   

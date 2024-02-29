@@ -21,23 +21,21 @@
                 $country = $row1["b_country"];
                 echo "<div class='container'>
                         <div class='left'>
-                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>
+                            ";
                             if ($_SESSION["position"]=="Regular") {
                                 echo "<ul><br>
-                                        <li><a href='4a_products.php'>Products</a></li>
-                                        <li><a href='4b_transports.php'>Transports</a></li>                                        
+                                        <li><a href='1a_projects.php'>Projects</a></li>                                        
                                     </ul>";
                             } else if ($_SESSION["position"]=="Manager") {
                                 echo "<ul><br>
-                                        <li><a href='4a_products.php'>Products</a></li>
-                                        <li><a href='4b_transports.php'>Transports</a></li>
-                                        <li><a href='4c_employees.php'>Employees</a></li>                                        
+                                        <li><a href='1a_projects.php'>Projects</a></li>
+                                        <li><a href='1b_employees.php'>Employees</a></li>                                                                            
                                     </ul>";
                             } else {
                                 echo "<ul><br>
-                                        <li><a href='4a_products.php'>Products</a></li>
-                                        <li><a href='4b_transports.php'>Transports</a></li>
-                                        <li><a href='4c_employees.php'>Employees</a></li>                                        
+                                        <li><a href='1a_projects.php'>Projects</a></li>
+                                        <li><a href='1b_employees.php'>Employees</a></li>                                        
                                     </ul>";
                             }
                             echo "
@@ -50,13 +48,41 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>  
-                        <br><h1>Welcome, $_SESSION[fname] $_SESSION[lname]!</h1><br>                                          
+                        <div class='main'>
+                        <div class=top>";
+                        if ($_SESSION["position"]=="Manager") {
+                            echo "<ul>
+                                <li><a href='1b1_view_employees.php'>
+                                    View All Employees
+                                </a></li>
+                                <li><a href=1b3_add_employee.php>
+                                    Add Employee
+                                </a></li>
+                            </ul>";
+                        }
+                        else {
+                            echo "<ul>
+                                <li><a href='1b1_view_employees.php'>
+                                    View All Employees
+                                </a></li>
+                                <li><a href='1b2_search_employees.php'>
+                                    Search Employee
+                                </a></li>
+                                <li><a href='1b3_add_employee.php'>
+                                    Add Employee
+                                </a></li>
+                                <li><a href='1b4_update_employee.php'>
+                                    Update Employee Details
+                                </a></li>
+                            </ul>";
+                        }
+                        echo "
+                            </div>
                         </div>
                     </div>
                 ";
             } else {
-                die("<br><br>Error: ".mysqli_error($link));
+                die("Error: ".mysqli_error($link));
             }
         } else {
             echo "<br><br><div style='text-align:center;'><h1>You aren't logged in.</h1><br>
@@ -65,4 +91,4 @@
         }
     ?>
     </body>
-</html>
+</html>                   

@@ -3,7 +3,7 @@
 ?>
 <html>
     <head>
-        <title></title>
+        <title>Profile</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -13,12 +13,11 @@
             if ($link == FALSE) {
                 die("<br><br>Error connecting to database. Please try again later.");
             }
-            $previous_page = $_SERVER["HTTP_REFERER"];
-            $name=
+            $previous_page=$_SERVER["HTTP_REFERER"];
             $q1 = "SELECT *
                     FROM company
                     WHERE branch_id=$_SESSION[branch_id]";
-            $q2 = "SELECT fname, lname, position, phone_no, email_id, gender, dob, join_date, salary
+            $q2 = "SELECT fname, lname, position, email_id, gender, dob, join_date, salary
                      FROM employee
                      WHERE employee_id='$_SESSION[id]'";
             if ($res1 = mysqli_query($link, $q1)) {
@@ -63,8 +62,38 @@
                                             <td>$row2[dob]</td>
                                         </tr>
                                         <tr>
-                                            <th>Phone No.</th>
-                                            <td>$row2[phone_no]</td>
+                                            <th>Phone No(s)</th>
+                                            <td>";
+                                        $q3="SELECT COUNT(phone_no) as c
+                                            FROM employee_phone_no
+                                            WHERE employee_id=$_SESSION[id]";
+                                        if ($res3=mysqli_query($link, $q3)) {
+                                            if (mysqli_num_rows($res3)==1) {
+                                                $row3=mysqli_fetch_array($res3);
+                                                $count=$row3["c"];
+                                                $q4="SELECT phone_no
+                                                FROM employee_phone_no
+                                                WHERE employee_id=$_SESSION[id]";
+                                                if ($res4=mysqli_query($link, $q4)) {
+                                                    if (mysqli_num_rows($res4)>0) {
+                                                        $i=1;
+                                                        while ($row4=mysqli_fetch_array($res4)) {
+                                                            if ($i!=$count)
+                                                                echo "$row4[phone_no], ";
+                                                            else
+                                                                echo "$row4[phone_no]";
+                                                        }
+                                                    } else {
+                                                        echo "-";
+                                                    }
+                                                }
+                                            } else {
+                                                echo "-";
+                                            }
+                                        } else {
+                                            die("Error: ".mysqli_error($link));
+                                        }
+                                        echo "</td>
                                         </tr>
                                         <tr>
                                             <th>Email ID</th>
@@ -93,7 +122,7 @@
                     </div>
                 ";
             } else {
-                die("<br><br>Error: ".mysqli_error($link));
+                die("Error: ".mysqli_error($link));
             }
         } else {
             echo "<br><br><div style='text-align:center;'><h1>You aren't logged in.</h1><br>

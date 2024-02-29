@@ -3,7 +3,7 @@
 ?>
 <html>
     <head>
-        <title>Production</title>
+        <title>Manufacturing</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -27,7 +27,7 @@
                                 echo "<ul><br>
                                         <li><a href='2a_spares.php'>Spares</a></li>                                        
                                         <li><a href='2b_manufacturing.php'>Manufacturing</a></li>
-                                        <li><a href='2c_transports.php'>Transports</a></li>                                    
+                                        <li><a href='2c_transports.php'>'Transports</a></li>                                    
                                     </ul>";
                             } else if ($_SESSION["position"]=="Manager") {
                                 echo "<ul><br>
@@ -55,12 +55,39 @@
                             </div>
                         </div>
                         <div class='main'>
-                            <br><h1>Welcome, $_SESSION[fname] $_SESSION[lname]!</h1><br>           
+                            <div class='top'>";
+                            if ($_SESSION["position"]=="Regular") {
+                                echo "<ul>
+                                    <li><a href='2c1_transport_products.php'>
+                                        Transport Products
+                                    </a></li>
+                                </ul>";
+                            } else if ($_SESSION["position"]=="Manager") {
+                                echo "<ul>
+                                    <li><a href='2c1_transport_products.php'>
+                                        Transport Products
+                                    </a></li>
+                                    <li><a href='2c2_view_transports.php'>
+                                        View Transports
+                                    </a></li>
+                                </ul>";
+                            } else {
+                                echo "<ul>
+                                    <li><a href='2c1_transport_products.php'>
+                                        Transport Products
+                                    </a></li>
+                                    <li><a href='2c2_view_transports.php'>
+                                        View Transports
+                                    </a></li>
+                                </ul>";
+                            }  
+                        echo "
+                            </div>
                         </div>
                     </div>
                 ";
             } else {
-                die("<br><br>Error: ".mysqli_error($link));
+                die("Error: ".mysqli_error($link));
             }
         } else {
             echo "<br><br><div style='text-align:center;'><h1>You aren't logged in.</h1><br>

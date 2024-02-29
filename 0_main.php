@@ -21,25 +21,14 @@
                 $country = $row1["b_country"];
                 echo "<div class='container'>
                         <div class='left'>
-                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
-                            if ($_SESSION["position"]=="Regular") {
-                                echo "<ul><br>
-                                        <li><a href='4a_products.php'>Products</a></li>
-                                        <li><a href='4b_transports.php'>Transports</a></li>                                        
-                                    </ul>";
-                            } else if ($_SESSION["position"]=="Manager") {
-                                echo "<ul><br>
-                                        <li><a href='4a_products.php'>Products</a></li>
-                                        <li><a href='4b_transports.php'>Transports</a></li>
-                                        <li><a href='4c_employees.php'>Employees</a></li>                                        
-                                    </ul>";
-                            } else {
-                                echo "<ul><br>
-                                        <li><a href='4a_products.php'>Products</a></li>
-                                        <li><a href='4b_transports.php'>Transports</a></li>
-                                        <li><a href='4c_employees.php'>Employees</a></li>                                        
-                                    </ul>";
-                            }
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>
+                            <ul><br>
+                                <li><a href='0a_branches.php'>Branches</a></li>
+                                <li><a href='0b_spares_and_suppliers.php'>Spares and Suppliers</a></li>
+                                <li><a href='0c_projects.php'>Projects</a></li>                                
+                                <li><a href='0d_products.php'>Products</a></li>
+                                <li><a href='0e_dealer.php'>Dealers</a></li>
+                            </ul>";                           
                             echo "
                             <div class='profile-section'>
                                 <br>
@@ -50,13 +39,13 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>  
-                        <br><h1>Welcome, $_SESSION[fname] $_SESSION[lname]!</h1><br>                                          
+                        <div class='main'>
+                        <br><h1>Welcome, $_SESSION[fname] $_SESSION[lname]!</h1><br>                  
                         </div>
                     </div>
                 ";
             } else {
-                die("<br><br>Error: ".mysqli_error($link));
+                die("<br>Error: ".mysqli_error($link));
             }
         } else {
             echo "<br><br><div style='text-align:center;'><h1>You aren't logged in.</h1><br>
