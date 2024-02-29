@@ -137,20 +137,20 @@
                                                             if ($res5=mysqli_query($link, $q5)) {
                                                                 if (mysqli_num_rows($res5)>0) { 
                                                                     while ($row5=mysqli_fetch_array($res5)) {
-                                                                        $manufacture_date=$row5["manufacuture_date"];
+                                                                        $manufacture_date=$row5["manufacture_date"];
                                                                         $quantity_in_bill_with_md=$row5["quantity"];
                                                                         if ($quantity_to_be_removed<=$quantity_in_bill_with_md) {
                                                                             $q6="UPDATE bill_product
                                                                                 SET quantity=quantity-$quantity_to_be_removed
                                                                                 WHERE bill_id=$bill_id
                                                                                 AND product_id=$product_id
-                                                                                AND manufacture_date=$manufacture_date";
+                                                                                AND manufacture_date='$manufacture_date'";
                                                                         } else {
                                                                             $q6="UPDATE bill_product
                                                                                 SET quantity=quantity-$quantity_in_bill_with_md
                                                                                 WHERE bill_id=$bill_id
                                                                                 AND product_id=$product_id
-                                                                                AND manufacture_date=$manufacture_date";
+                                                                                AND manufacture_date='$manufacture_date'";
                                                                         }
                                                                         if (mysqli_query($link, $q6)) {
                                                                             if ($quantity_to_be_removed<=$quantity_in_bill_with_md)
@@ -161,21 +161,38 @@
                                                                             die("Error: ".mysqli_error($link));
                                                                         }
                                                                     }
-                                                                    echo "$quantity units of $product_name successfully deleted form $bill_id";
-                                                                    $q7="DELETE FROM bill_product
+                                                                    echo "$quantity units of $product_name successfully deleted from bill with bill ID $bill_id.";                                                                   
+                                                                    $q="SELECT quantity
+                                                                        FROM bill_product
                                                                         WHERE bill_id=$bill_id
                                                                         AND product_id=$product_id
-                                                                        AND quantity=0";
-                                                                    if (mysqli_query($link, $q7)) {
-                                                                        $q8="SELECT * FROM bill_product
-                                                                            WHERE bill_id=$bill_id";
-                                                                        if (mysqli_query($link, $q8)) {
-                                                                            if (mysqli_num_rows($res8)<0) {
-                                                                                $q9="DELETE FROM bill
-                                                                                    WHERE bill_id=$bill_id";
+                                                                        AND quantity=0;";
+                                                                    if ($res=mysqli_query($link, $q)) {
+                                                                        if (mysqli_num_rows($res)>0) {
+                                                                            $q7="DELETE FROM bill_product
+                                                                                WHERE bill_id=$bill_id
+                                                                                AND product_id=$product_id
+                                                                                AND quantity=0";
+                                                                            if (mysqli_query($link, $q7)) {
+                                                                                echo "";
+                                                                            } else {
+                                                                                die("Error: ".mysqli_error($link));
                                                                             }
-                                                                            echo "<br>No more items present in the bill, so bill has been deleted.";
+                                                                            $q8="SELECT * FROM bill_product
+                                                                                    WHERE bill_id=$bill_id";
+                                                                                if ($res8=mysqli_query($link, $q8)) {
+                                                                                    if (mysqli_num_rows($res8)<=0) {
+                                                                                        $q9="DELETE FROM bill
+                                                                                            WHERE bill_id=$bill_id";
+                                                                                        mysqli_query($link, $q9);
+                                                                                    } else {
+                                                                                        die("Error: ".mysqli_error($link));
+                                                                                    }
+                                                                                    echo "<br>No more items present in the bill, so bill has been deleted.";
+                                                                                }
                                                                         }
+                                                                    } else {
+                                                                        die("Error: ".mysqli_error($link));
                                                                     }
                                                                 }                                   
                                                             } else {

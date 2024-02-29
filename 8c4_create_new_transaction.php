@@ -95,18 +95,9 @@
                                 $bill_id=$_POST["bill_id"];
                                 $q2="SELECT * FROM bill
                                     WHERE bill_id=$bill_id";
-                                if ($res2=mysqli_query($link, $q2)) {
-                                    $q2="SELECT currency
-                                        FROM country_currency
-                                        WHERE country=$country";
-                                    if ($res2=mysqli_query($link, $q2)) { 
-                                        if(mysqli_num_rows($res2)==1) { 
-                                            $row2=mysqli_fetch_array($res2);
-                                            $currency=$row2["currency"];
-                                            $q3="SELECT SUM(bp.quantity)*price as cost
-                                                FROM product p
-                                                INNER JOIN product_country_prices pcp
-                                                ON p.product_id=pcp.product_id
+                                if ($res2=mysqli_query($link, $q2)) {                                    
+                                        $q3="SELECT SUM(bp.quantity)*price as cost
+                                                FROM product p                                                
                                                 INNER JOIN bill_product bp
                                                 ON p.product_id=bp.product_id
                                                 WHERE bill_id=$bill_id";
@@ -114,12 +105,12 @@
                                                 if (mysqli_num_rows($res3)>0) {
                                                     $total_amount=0;
                                                     while ($row3=mysqli_fetch_array($res3)) {
-                                                        $total_amount+=$row3["amount"];
+                                                        $total_amount+=$row3["cost"];
                                                     }
                                                     $q4="INSERT INTO transaction (bill_id, total_amount) 
                                                         VALUES ($bill_id, $total_amount)";
                                                     if ($res4=mysqli_query($link, $q4)) {
-                                                        $q5="SELECT MAX(transancation_id) as transaction_id
+                                                        $q5="SELECT MAX(transaction_id) as transaction_id
                                                             FROM transaction
                                                             WHERE bill_id=$bill_id
                                                             AND total_amount=$total_amount";
@@ -140,13 +131,7 @@
                                                 }
                                             } else {
                                                 die("Error: ".mysqli_error($link));
-                                            }
-                                        } else {
-                                            echo "Country not found.";
-                                        }
-                                    } else {
-                                        die("Error: ".mysqli_error($link));
-                                    }
+                                            }                                       
                                 } else {
                                     die("Error: ".mysqli_error($link));
                                 }

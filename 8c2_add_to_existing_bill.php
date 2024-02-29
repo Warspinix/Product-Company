@@ -119,7 +119,7 @@
                                             if (mysqli_num_rows($res3)== 1) {
                                                 $row3=mysqli_fetch_array($res3);
                                                 $product_name=$row3["product_name"];
-                                                $q4="SELECT SUM(quantity)
+                                                $q4="SELECT SUM(product_stock) as quantity
                                                     FROM showroom
                                                     WHERE branch_id=$branch_id
                                                     AND product_id=$product_id";
@@ -138,7 +138,8 @@
                                                                 $actual_quantity=$total_quantity;
                                                             }
                                                             if ($actual_quantity-$quantity>0) {
-                                                                $q6="SELECT quantity, manufacture_date
+                                                                $q6="SELECT product_stock as quantity, 
+                                                                    manufacture_date
                                                                     FROM showroom
                                                                     WHERE branch_id=$branch_id
                                                                     AND product_id=$product_id
@@ -154,7 +155,7 @@
                                                                                 INNER JOIN bill b
                                                                                 ON bp.bill_id=b.bill_id
                                                                                 WHERE product_id=$product_id
-                                                                                AND manufacture_date=$manufacture_date
+                                                                                AND manufacture_date='$manufacture_date'
                                                                                 AND branch_id=$branch_id
                                                                                 AND status='UNPAID'";
                                                                             if ($res7=mysqli_query($link, $q7)) {
@@ -168,7 +169,7 @@
                                                                                     FROM bill_product
                                                                                     WHERE bill_id=$bill_id
                                                                                     AND product_id=$product_id
-                                                                                    AND manufacture_date=$manufacture_date";
+                                                                                    AND manufacture_date='$manufacture_date'";
                                                                                 if ($res8=mysqli_query($link, $q8)) {
                                                                                     if (mysqli_num_rows($res8)==1) {
                                                                                         $row8=mysqli_fetch_array($res8);
@@ -177,13 +178,13 @@
                                                                                                 SET quantity=quantity+$temp
                                                                                                 WHERE bill_id=$bill_id
                                                                                                 AND product_id=$product_id
-                                                                                                AND manufacture_dare=$manufacture_date";
+                                                                                                AND manufacture_date='$manufacture_date'";
                                                                                         } else {
                                                                                             $q9="UPDATE bill_product
                                                                                                 SET quantity=quantity+$row8[quantity]
                                                                                                 WHERE bill_id=$bill_id
                                                                                                 AND product_id=$product_id
-                                                                                                AND manufacture_dare=$manufacture_date";                                                                                            
+                                                                                                AND manufacture_date='$manufacture_date'";
                                                                                         }
                                                                                     } else {
                                                                                         if ($temp<=$available_quantity) {

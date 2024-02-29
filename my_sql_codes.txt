@@ -10,11 +10,6 @@ COMPANY
 148 - Showroom
 149 - Service Centre
 
-///
-
-(140000, 'Apple Park', '10600 N Tantau Ave', 'Cupertino', '95014', 'California', 'USA');
-
-///
 
 ----------------------------------------------
 

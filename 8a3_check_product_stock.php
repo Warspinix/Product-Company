@@ -89,13 +89,13 @@
                                     if (mysqli_num_rows($res2)==1) {
                                         $row2=mysqli_fetch_array($res2);
                                         $product_name=$row2["product_name"];
-                                        $q3="SELECT quantity, manufacture_date
+                                        $q3="SELECT product_stock, manufacture_date
                                             FROM showroom
                                             WHERE branch_id=$_SESSION[branch_id]
                                             AND product_id=$product_id";
                                         if ($res3=mysqli_query($link, $q3)) {
                                             if (mysqli_num_rows($res3)>0) {
-                                                echo "Stock of $product_name<br>
+                                                echo "<h4>Stock of $product_name<h4>
                                                 <table>
                                                     <tr>
                                                         <th>Manufacture Date</th>
@@ -105,7 +105,7 @@
                                                     echo "
                                                     <tr>
                                                         <td>$row3[manufacture_date]</td>
-                                                        <td>$row3[quantity]</td>
+                                                        <td>$row3[product_stock]</td>
                                                     </tr>";
                                                 }
                                                 echo "

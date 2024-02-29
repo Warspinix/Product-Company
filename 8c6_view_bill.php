@@ -100,7 +100,7 @@
                             </div>
                             <div class="field">
                                 <input type="number" name="id" required>
-                                <label for="id">Search ID</label>
+                                <label for="id">Search</label>
                             </div>
                             <div class="submit">
                                 <input type="submit" value="Search">
@@ -121,13 +121,14 @@
                                 $branch="$row2[b_name], $row2[b_address], 
                                 $row2[b_city] - $row2[b_code], $row2[b_state], $row2[b_country]";
                                 if ($table=="bill") {
-                                    $q3="SELECT customer_id, employee_id, date_issued
+                                    $q3="SELECT bill_id, customer_id, employee_id, date_issued
                                         FROM bill
                                         WHERE bill_id=$id
                                         AND branch_id=$branch_id";
                                     if ($res3=mysqli_query($link, $q3)) {
                                         if (mysqli_num_rows($res3)==1) {
                                             $row3=mysqli_fetch_array($res3);
+                                            $bill_id=$row3["bill_id"];
                                             $phone_no=$row3["customer_id"];
                                             $employee_id=$row3["employee_id"];
                                             $date_issued=$row3["date_issued"];
@@ -136,7 +137,7 @@
                                                 WHERE phone_no=$phone_no";
                                             if ($res4=mysqli_query($link, $q4)) {
                                                 $row4=mysqli_fetch_array($res4);
-                                                $customer_name="$row4[fname] $row3[lname]";
+                                                $customer_name="$row4[fname] $row4[lname]";
                                                 $q5="SELECT fname, lname, position
                                                     FROM employee
                                                     WHERE employee_id=$employee_id";
@@ -150,50 +151,51 @@
                                                         SUM(quantity)*price as total_cost
                                                         FROM bill_product bp
                                                         INNER JOIN product p
-                                                        ON bp.product_id=p.product_id
-                                                        INNER JOIN product_country_prices pcp
-                                                        ON p.product_id=pcp.product_id
-                                                        INNER JOIN country_currency cc
-                                                        ON cc.country=pcp.country
+                                                        ON bp.product_id=p.product_id                                                       
                                                         WHERE bill_id=$id
-                                                        AND status=$status
-                                                        AND cc.country=$country
+                                                        AND status='$status'
                                                         GROUP BY p.product_id";
                                                     if ($res6=mysqli_query($link, $q6)) {
-                                                        echo "
-                                                        Bill ID: $bill_id
-                                                        &emsp;&emsp;
-                                                        Date Issued: $date_issued
-                                                        &emsp;&emsp;
-                                                        Customer Name: $customer_name
-                                                        <br>
-                                                        Employee ID: $employee_id
-                                                        &emsp;&emsp;
-                                                        Employee Name: $employee_name
-                                                        <br>
-                                                        $branch";
-                                                        echo "
-                                                        table>
-                                                            <tr>
-                                                                <th>Product ID</th>
-                                                                <th>Product Name</th>
-                                                                <th>Quantity</th>
-                                                                <th>Unit Cost</th>
-                                                                <th>Total Cost</th>
-                                                            </tr>";
-                                                        $total_amount=0;
-                                                        while ($row6=mysqli_fetch_array($res6)) {
+                                                        if (mysqli_num_rows($res6)>0) {
                                                             echo "
-                                                            <tr>
-                                                                <td>$row6[product_id]</td>
-                                                                <td>$row6[product_name]</td>
-                                                                <td>$row6[quantity]</td>
-                                                                <td>$row6[unit_cost]</td>
-                                                                <td>$row6[total_cost]</td>
-                                                            </tr>";
+                                                            Bill ID: $bill_id
+                                                            &emsp;&emsp;
+                                                            Date Issued: $date_issued
+                                                            &emsp;&emsp;
+                                                            Customer Name: $customer_name
+                                                            <br>
+                                                            Employee ID: $employee_id
+                                                            &emsp;&emsp;
+                                                            Employee Name: $employee_name
+                                                            <br>
+                                                            <br>";
+                                                            echo "
+                                                            <table>
+                                                                <tr>
+                                                                    <th>Product ID</th>
+                                                                    <th>Product Name</th>
+                                                                    <th>Quantity</th>
+                                                                    <th>Unit Cost</th>
+                                                                    <th>Total Cost</th>
+                                                                </tr>";
+                                                            $total_amount=0;
+                                                            while ($row6=mysqli_fetch_array($res6)) {
+                                                                echo "
+                                                                <tr>
+                                                                    <td>$row6[product_id]</td>
+                                                                    <td>$row6[product_name]</td>
+                                                                    <td>$row6[quantity]</td>
+                                                                    <td>$row6[unit_cost]</td>
+                                                                    <td>$row6[total_cost]</td>
+                                                                </tr>";
+                                                                $total_amount+=$row6["total_cost"];
+                                                            }
+                                                            echo "
+                                                            </table><br><br>
+                                                            Total Amount = $total_amount";
+                                                        } else {
+                                                            echo "No items in bill";
                                                         }
-                                                        echo "
-                                                        </table>";
                                                     } else {
                                                         die("Error: ".mysqli_error($link));
                                                     }
@@ -217,14 +219,14 @@
                                         if (mysqli_num_rows($res3)==1) {
                                             $row3=mysqli_fetch_array($res3);
                                             $customer_name="$row3[fname] $row3[lname]";
-                                            $q4="SELECT bill_id, date_issued, fname, lname
+                                            $q4="SELECT b.bill_id, date_issued, fname, lname
                                                 FROM bill b
                                                 INNER JOIN employee e
                                                 ON b.employee_id=e.employee_id
                                                 INNER JOIN bill_product bp
                                                 ON b.bill_id=bp.bill_id
                                                 WHERE customer_id=$id
-                                                AND status=$status
+                                                AND status='$status'
                                                 AND b.branch_id=$_SESSION[branch_id]";
                                             if ($res4=mysqli_query($link, $q4)) {
                                                 if (mysqli_num_rows($res4)>0) {
@@ -233,7 +235,7 @@
                                                         <tr>
                                                             <th>Bill ID</th>
                                                             <th>Date Issued</th>
-                                                            <th>Employee/th>
+                                                            <th>Employee</th>
                                                         </tr>";
                                                     while ($row4=mysqli_fetch_array($res4)) {   
                                                         echo "
@@ -265,17 +267,33 @@
                                         if (mysqli_num_rows($res3)==1) {
                                             $row3=mysqli_fetch_array($res3);
                                             $product_name=$row3["product_name"];
-                                            $q4="SELECT b.bill_id, date_issued, SUM(quantity)
+                                            $q4="SELECT b.bill_id as bill_id, date_issued, 
+                                                SUM(quantity) as quantity
                                                 FROM bill_product bp
                                                 INNER JOIN bill b
                                                 ON bp.bill_id=b.bill_id
                                                 WHERE product_id=$id
-                                                AND branch_id=$SESSION[branch_id]
-                                                AND status LIKE '%$status%'
+                                                AND branch_id=$_SESSION[branch_id]
+                                                AND status='$status'
                                                 GROUP BY product_id";
                                             if ($res4=mysqli_query($link, $q4)) {
                                                 if (mysqli_num_rows($res4)>0) {
-                                                    echo "Bills where $product_name is found.";
+                                                    echo "Bills where $product_name is found.<br><br>";
+                                                    echo "
+                                                    <table>
+                                                        <tr>
+                                                            <th>Bill ID</th>
+                                                            <th>Date Issued</th>
+                                                            <th>Quantity</th>
+                                                        </tr>";
+                                                    while ($row4=mysqli_fetch_array($res4)) {
+                                                        echo "
+                                                        <tr>
+                                                            <td>$row4[bill_id]</td>
+                                                            <td>$row4[date_issued]</td>
+                                                            <td>$row4[quantity]</td>
+                                                            </tr>";
+                                                    }
                                                 } else {
                                                     echo "$product_name is not found in any of the bills.";
                                                 }

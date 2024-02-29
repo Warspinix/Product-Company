@@ -116,35 +116,48 @@
                                 $q2="SELECT bill_id, total_amount
                                     FROM transaction
                                     WHERE transaction_id=$transaction_id";
-                                if ($res2 = mysqli_query($link, $q2)) {
+                                if ($res2 = mysqli_query($link, $q2)) {                                
                                     if (mysqli_num_rows($res2)==1) {
                                         $row2=mysqli_fetch_array($res2);
                                         $bill_id=$row2["bill_id"];
                                         $total_amount=$row2["total_amount"];
-                                        if ($points="yes") {
-                                            $total_amount=$total_amount-$points;
-                                        }
+                                        if ($points=="yes") {
+                                            $q="SELECT points
+                                                FROM customer c
+                                                INNER JOIN bill b
+                                                ON phone_no=customer_id
+                                                INNER JOIN transaction t
+                                                ON t.bill_id=b.bill_id
+                                                WHERE transaction_id=$transaction_id";
+                                            if (mysqli_query($link, $q)) {
+                                                if ($r=mysqli_query($link, $q)) {
+                                                    $row=mysqli_fetch_array($r);
+                                                    $p=$row["points"];
+                                                }
+                                            }
+                                            $total_amount=$total_amount-$p;
+                                        } 
                                         $q3="SELECT product_id, quantity, manufacture_date
                                             FROM bill_product
                                             WHERE bill_id=$bill_id
                                             ORDER BY manufacture_date";
                                         if ($res3=mysqli_query($link, $q3)) {
-                                            if (mysqli_num_rows($res3)== 1) {
+                                            if (mysqli_num_rows($res3)>0) {                                                
                                                 while ($row3=mysqli_fetch_array($res3)) {
                                                     $product_id=$row3["product_id"];
                                                     $quantity=$row3["quantity"];
                                                     $manufacture_date=$row3["manufacture_date"];
                                                     $q4="UPDATE showroom
-                                                        SET quantity=quantity-$quantity
+                                                        SET product_stock=product_stock-$quantity
                                                         WHERE branch_id=$branch_id
                                                         AND product_id=$product_id
-                                                        AND manufacture_date=$manufacture_date";
+                                                        AND manufacture_date='$manufacture_date'";
                                                     if (mysqli_query($link, $q4)) {
                                                         $q5="UPDATE bill_product
                                                             SET status='PAID'
                                                             WHERE bill_id=$bill_id
                                                             AND product_id=$product_id
-                                                            AND manufacture_date=$manufacture_date";
+                                                            AND manufacture_date='$manufacture_date'";
                                                         if (mysqli_query($link, $q5)) {
                                                         } else {
                                                             die("Error: ".mysqli_error($link));
@@ -155,12 +168,12 @@
                                                 }
                                                 $q6="UPDATE transaction SET
                                                     total_amount=$total_amount,
-                                                    transaction_date=$transaction_date,
-                                                    payment_method=$payment_method,
+                                                    transaction_date='$transaction_date',
+                                                    payment_method='$payment_method',
                                                     status='SUCCESSFUL'
                                                     WHERE transaction_id=$transaction_id";
                                                 if (mysqli_query($link, $q6)) {
-                                                    $q7="SELECT phone_no
+                                                    $q7="SELECT customer_id
                                                         FROM bill
                                                         WHERE bill_id=$bill_id";
                                                     if ($res7=mysqli_query($link, $q7)) {

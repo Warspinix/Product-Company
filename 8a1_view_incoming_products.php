@@ -21,7 +21,7 @@
                 $country = $row1["b_country"];
                 echo "<div class='container'>
                         <div class='left'>
-                            <span style='font-size:16px'>$name, $country</span>";
+                        <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
                             if ($_SESSION["position"]=="Regular") {
                                 echo "<ul><br>
                                         <li><a href='8a_products.php'>Products</a></li>
@@ -69,24 +69,26 @@
                             </ul>
                         </div>
                         <?php
-                            $q2="SELECT warehouse_transport_id, pr.product_id, product_name, 
+                            $q2="SELECT warehouse_transport_id, pr.product_id, product_name, manufacture_date, 
                                 quantity, b_name, b_address, b_city, b_state
                                 FROM warehouse_transports wt
                                 INNER JOIN product pr
                                 ON wt.product_id=pr.product_id
                                 INNER JOIN company
                                 ON source_branch_id=branch_id
-                                WHERE destination_branch_id=$_SESSION[branch_id]";
+                                WHERE destination_branch_id=$_SESSION[branch_id]
+                                AND wt.status='NOT RECEIVED'";
                             $receive_date=date("Y-m-d");
                             if ($res2=mysqli_query($link, $q2)) {
                                 if (mysqli_num_rows($res2) > 0) {
                                     echo "
-                                    <br><br><h1>Incoming Product Transports</h1>
+                                    <br><h1>Incoming Product Transports</h1><br>
                                     <table>
                                         <tr>
-                                            <th>Transport ID</th>
+                                            <th>ID</th>
                                             <th>Product ID</th>
                                             <th>Product Name</th>
+                                            <th>Manufacture Date</th>
                                             <th>Quantity</th>
                                             <th>Transported From</th>
                                         </tr>";
@@ -96,6 +98,7 @@
                                             <td>$row2[warehouse_transport_id]</td>
                                             <td>$row2[product_id]</td>
                                             <td>$row2[product_name]</td>
+                                            <td>$row2[manufacture_date]</td>
                                             <td>$row2[quantity]</td>
                                             <td>$row2[b_name], $row2[b_address], $row2[b_city], $row2[b_state]</td>
                                         </tr>";

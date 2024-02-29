@@ -53,21 +53,34 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>";
+                        <div class='main'>
+                        <div class=top>";
+                        if ($_SESSION["position"]=="Manager") {
+                            echo "<ul>
+                                <li><a href=8d1_search_employee.php>
+                                Search Employee
+                                </a></li>
+                                <li><a href=8d2_add_employee.php>
+                                Add Employee
+                                </a></li>
+                            </ul>";
+                        }
+                        else {
+                            echo "<ul>
+                                <li><a href='8d1_search_employee.php'>
+                                Search Employee
+                                </a></li>
+                                <li><a href='8d2_add_employee.php'>
+                                Add Employee
+                                </a></li>
+                                <li><a href='8d3_update_employee.php'>
+                                Update Employee Details
+                                </a></li>
+                            </ul>";
+                        }
+                        echo "
+                        </div>";
                         ?>
-                        <div class="top">
-                            <ul>
-                                <li><a href="8d1_search_employee.php">
-                                   Search Employee
-                                </a></li>
-                                <li><a href="8d2_add_employee.php">
-                                   Add Employee
-                                </a></li>
-                                <li><a href="8d3_update_employee.php">
-                                   Update Employee Details
-                                </a></li>
-                            </ul>
-                        </div>
                         <br><h1>Search Employee</h1>
                         <form method="POST">
                             <br>

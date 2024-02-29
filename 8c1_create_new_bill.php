@@ -123,7 +123,7 @@
                                             if (mysqli_num_rows($res3)== 1) {
                                                 $row3=mysqli_fetch_array($res3);
                                                 $product_name=$row3["product_name"];
-                                                $q4="SELECT SUM(quantity) as quantity
+                                                $q4="SELECT SUM(product_stock) as quantity
                                                     FROM showroom
                                                     WHERE branch_id=$branch_id
                                                     AND product_id=$product_id";
@@ -133,34 +133,34 @@
                                                         $total_quantity=$row4["quantity"];
                                                         if ($total_quantity-$quantity>0) {
                                                             $q5="INSERT INTO bill (customer_id, employee_id, branch_id, date_issued)
-                                                            VALUES ($phone_no, $employee_id, $branch_id, $date_issued)";
-                                                            if ($mysqli_query($link, $q5)) {
+                                                            VALUES ($phone_no, $employee_id, $branch_id, '$date_issued')";
+                                                            if (mysqli_query($link, $q5)) {
                                                                 $q6="SELECT MAX(bill_id) as bill_id
                                                                     FROM bill
-                                                                    WHERE customer_id=$customer_id
-                                                                    AND employee_id=$employee_id
+                                                                    WHERE customer_id='$phone_no'
+                                                                    AND employee_id='$employee_id'
                                                                     AND branch_id=$branch_id
-                                                                    AND date_issued=$date_issued";
-                                                                if ($res6=$mysqli_query($link, $q6)) {
+                                                                    AND date_issued='$date_issued'";
+                                                                if ($res6=mysqli_query($link, $q6)) {
                                                                     $row6=mysqli_fetch_array($res6);
                                                                     $bill_id=$row6["bill_id"];
-                                                                    $q7="SELECT quantity, manufacture_date
+                                                                    $q7="SELECT product_stock, manufacture_date
                                                                         FROM showroom
                                                                         WHERE branch_id=$branch_id
                                                                         AND product_id=$product_id
                                                                         ORDER BY manufacture_date";
-                                                                    if ($res7=$mysqli_query($link, $q7)) {
+                                                                    if ($res7=mysqli_query($link, $q7)) {
                                                                         if (mysqli_num_rows($res7)>0) {
                                                                             $temp=$quantity;
                                                                             while ($row7=mysqli_fetch_array($res7)) {
-                                                                                $total_product_quantity=$row7["quantity"];
+                                                                                $total_product_quantity=$row7["product_stock"];
                                                                                 $manufacture_date=$row7["manufacture_date"];
                                                                                 $q8="SELECT SUM(quantity) as quantity
                                                                                     FROM bill_product bp
                                                                                     INNER JOIN bill b
                                                                                     ON bp.bill_id=b.bill_id
                                                                                     WHERE product_id=$product_id
-                                                                                    AND manufacture_date=$manufacture_date
+                                                                                    AND manufacture_date='$manufacture_date'
                                                                                     AND branch_id=$branch_id
                                                                                     AND status='UNPAID'";
                                                                                 if ($res8=mysqli_query($link, $q8)) {
@@ -172,10 +172,10 @@
                                                                                     }
                                                                                     if ($temp<=$available_quantity) {
                                                                                         $q9="INSERT INTO bill_product (bill_id, product_id, quantity, manufacture_date)
-                                                                                            VALUES ($bill_id, $product_id, $temp, $manufacture_date)";
+                                                                                            VALUES ($bill_id, $product_id, $temp, '$manufacture_date')";
                                                                                     } else {
                                                                                         $q9="INSERT INTO bill_product (bill_id, product_id, quantity, manufacture_date)
-                                                                                        VALUES ($bill_id, $product_id, $available_quantity, $manufacture_date)";
+                                                                                            VALUES ($bill_id, $product_id, $available_quantity, '$manufacture_date')";
                                                                                     }
                                                                                     if (mysqli_query($link, $q9)) {
                                                                                         if ($temp<=$available_quantity)

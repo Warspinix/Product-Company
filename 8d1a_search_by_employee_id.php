@@ -54,21 +54,34 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>";
+                        <div class='main'>
+                        <div class=top>";
+                        if ($_SESSION["position"]=="Manager") {
+                            echo "<ul>
+                                <li><a href=8d1_search_employee.php>
+                                Search Employee
+                                </a></li>
+                                <li><a href=8d2_add_employee.php>
+                                Add Employee
+                                </a></li>
+                            </ul>";
+                        }
+                        else {
+                            echo "<ul>
+                                <li><a href='8d1_search_employee.php'>
+                                Search Employee
+                                </a></li>
+                                <li><a href='8d2_add_employee.php'>
+                                Add Employee
+                                </a></li>
+                                <li><a href='8d3_update_employee.php'>
+                                Update Employee Details
+                                </a></li>
+                            </ul>";
+                        }
+                        echo "
+                        </div>";
                         ?>
-                        <div class="top">
-                            <ul>
-                                <li><a href="8d1_search_employee.php">
-                                   Search Employee
-                                </a></li>
-                                <li><a href="8d2_add_employee.php">
-                                   Add Employee
-                                </a></li>
-                                <li><a href="8d3_update_employee.php">
-                                   Update Employee Details
-                                </a></li>
-                            </ul>
-                        </div>
                         <br><h1>Search Employee by ID</h1>
                         <form method="POST">
                             <br>
@@ -110,8 +123,38 @@
                                             <td>$row2[dob]</td>
                                         </tr>
                                         <tr>
-                                            <th>Phone No.</th>
-                                            <td>$row2[phone_no]</td>
+                                            <th>Phone No(s)</th>
+                                            <td>";
+                                        $q3="SELECT COUNT(phone_no) as c
+                                            FROM employee_phone_no
+                                            WHERE employee_id=$_SESSION[id]";
+                                        if ($res3=mysqli_query($link, $q3)) {
+                                            if (mysqli_num_rows($res3)==1) {
+                                                $row3=mysqli_fetch_array($res3);
+                                                $count=$row3["c"];
+                                                $q4="SELECT phone_no
+                                                FROM employee_phone_no
+                                                WHERE employee_id=$_SESSION[id]";
+                                                if ($res4=mysqli_query($link, $q4)) {
+                                                    if (mysqli_num_rows($res4)>0) {
+                                                        $i=1;
+                                                        while ($row4=mysqli_fetch_array($res4)) {
+                                                            if ($i!=$count)
+                                                                echo "$row4[phone_no], ";
+                                                            else
+                                                                echo "$row4[phone_no]";
+                                                        }
+                                                    } else {
+                                                        echo "-";
+                                                    }
+                                                }
+                                            } else {
+                                                echo "-";
+                                            }
+                                        } else {
+                                            die("Error: ".mysqli_error($link));
+                                        }
+                                        echo "</td>
                                         </tr>
                                         <tr>
                                             <th>Date of Joining</th>

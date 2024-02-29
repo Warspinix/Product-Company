@@ -53,8 +53,9 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>";      
-                        echo "</div>
+                        <div class='main'>
+                        <br><h1>Welcome, $_SESSION[fname] $_SESSION[lname]!</h1><br>           
+                        </div>
                     </div>
                 ";
             } else {

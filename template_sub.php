@@ -51,23 +51,47 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>";
-                        ?>
-                        <div class="top">
-                            <ul>
-                                <li><a href="">
-                                   
-                                </a></li>
-                                <li><a href="">
-                                   
-                                </a></li>
-                                <li><a href="">
+                        <div class='main'>
+                            <div class=top>";
+                            if ($_SESSION["position"]=="Regular") {
+                                echo "<ul>
+                                    <li><a href=''>
                                     
-                                </a></li>
-                            </ul>
-                        </div>
-                        <?php
-                        echo "
+                                    </a></li>
+                                    <li><a href=''>
+                                    
+                                    </a></li>
+                                    <li><a href=''>
+                                        
+                                    </a></li>
+                                </ul>";
+                            } else if ($_SESSION["position"]=="Manager") {
+                                echo "<ul>
+                                    <li><a href=''>
+                                    
+                                    </a></li>
+                                    <li><a href=''>
+                                    
+                                    </a></li>
+                                    <li><a href=''>
+                                        
+                                    </a></li>
+                                </ul>";
+                            } else {
+                                echo "<ul>
+                                    <li><a href=''>
+                                    
+                                    </a></li>
+                                    <li><a href=''>
+                                    
+                                    </a></li>
+                                    <li><a href=''>
+                                        
+                                    </a></li>
+                                </ul>";
+                            }
+                            echo "
+                            </div>
                         </div>
                     </div>
                 ";

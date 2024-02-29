@@ -1,0 +1,256 @@
+CREATE TABLE company (
+	branch_id INT PRIMARY KEY,
+	b_name varchar(25) NOT NULL,
+	b_address varchar(40) NOT NULL,
+	b_city varchar(15) NOT NULL,
+	b_code varchar(11) NOT NULL,
+	b_state varchar(20) NOT NULL,
+	b_country varchar(15) NOT NULL
+);
+
+CREATE TABLE spares (
+	spare_id INT PRIMARY KEY AUTO_INCREMENT,
+	part_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE branch_spares (
+	branch_id INT NOT NULL,
+	spare_id INT NOT NULL,
+	quantity INT NOT NULL
+);
+
+
+CREATE TABLE spares_usage (
+	log_id INT PRIMARY KEY AUTO_INCREMENT,
+	spare_id INT NOT NULL,
+	quantity INT NOT NULL,
+	log_date DATE NOT NULL,
+	employee_id VARCHAR(8) NOT NULL,
+	project_id INT NOT NULL,
+	branch_id INT NOT NULL
+);
+
+CREATE TABLE suppliers (
+	supplier_id INT PRIMARY KEY AUTO_INCREMENT,
+	supplier_name VARCHAR(60) NOT NULL
+);
+
+
+CREATE TABLE spares_suppliers (
+	spare_id INT NOT NULL,
+	supplier_id INT NOT NULL
+);
+
+CREATE TABLE orders (
+	order_id INT PRIMARY KEY AUTO_INCREMENT,
+	order_date DATE NOT NULL,
+	spare_id INT NOT NULL,
+	quantity INT NOT NULL,
+	supplier_id INT NOT NULL,
+	branch_id INT NOT NULL,
+	status VARCHAR(10) DEFAULT 'INCOMPLETE' NOT NULL
+);	
+
+
+CREATE TABLE supplies (
+	supply_id INT PRIMARY KEY AUTO_INCREMENT,
+	order_id INT NOT NULL,
+	supply_date DATE NOT NULL,
+	quantity INT NOT NULL
+);
+
+CREATE TABLE project (
+	project_id INT PRIMARY KEY,
+	project_name VARCHAR(50) NOT NULL,
+	start_date DATE NOT NULL,
+	deadline DATE NOT NULL,
+	end_date DATE,
+	allocated_budget INT NOT NULL,
+	status VARCHAR(20) DEFAULT 'IN PROGRESS' NOT NULL
+);
+
+CREATE TABLE project_branch (
+	project_id INT NOT NULL,
+	branch_id INT NOT NULL,
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL
+);	
+
+CREATE TABLE project_spares (
+	project_id INT NOT NULL,
+	spare_id INT NOT NULL,
+	quantity INT NOT NULL,
+	use_date DATE NOT NULL
+);	
+
+CREATE TABLE employee (
+	employee_id VARCHAR(8) PRIMARY KEY,
+	password VARCHAR(20) NOT NULL,
+	fname VARCHAR(30) NOT NULL,
+	lname VARCHAR(30) NOT NULL,
+	position VARCHAR(15) NOT NULL DEFAULT 'Regular',
+	email_id VARCHAR(50) NOT NULL,
+	gender VARCHAR(1) NOT NULL,
+	dob DATE NOT NULL,
+	join_date DATE NOT NULL,
+	salary INT NOT NULL,
+	branch_id INT NOT NULL
+);
+
+CREATE TABLE employee_phone_no (
+	employee_id INT NOT NULL,
+	phone_no VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE employee_branch (
+	employee_id INT NOT NULL,
+	branch_id VARCHAR(8) NOT NULL,
+	join_date DATE NOT NULL
+);
+
+CREATE TABLE employee_project (
+	employee_id INT NOT NULL,
+	project_id INT NOT NULL,
+	start_date DATE NOT NULL,
+	end_date DATE
+);
+
+CREATE TABLE customer (
+	phone_no VARCHAR(15) PRIMARY KEY,
+	fname VARCHAR(30) NOT NULL,
+	lname VARCHAR(30) NOT NULL,
+	email_id VARCHAR(255) NOT NULL,
+	points INT NOT NULL DEFAULT 0
+);
+
+CREATE TABLE product (
+	product_id INT PRIMARY KEY,
+	product_name VARCHAR(50) NOT NULL,
+	specifications VARCHAR(255) NOT NULL,
+	price INT NOT NULL,
+	warranty VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE project_product (
+	project_id INT NOT NULL,
+	product_id INT NOT NULL
+);
+
+
+
+CREATE TABLE manufactures (
+	manufacture_id INT PRIMARY KEY AUTO_INCREMENT,
+	project_id INT NOT NULL,
+	product_id INT NOT NULL,
+	manufacture_date INT NOT NULL,
+	source_branch_id INT NOT NULL,
+	quantity INT NOT NULL,
+	status VARCHAR(8) NOT NULL DEFAULT 'NOT SENT'
+);
+
+
+
+CREATE TABLE transports (
+	transport_id INT PRIMARY KEY AUTO_INCREMENT,
+	manufacture_id INT NOT NULL,
+	destination_branch_id INT NOT NULL,
+	send_date DATE NOT NULL,
+	receive_date DATE,
+	status VARCHAR(12) NOT NULL DEFAULT 'NOT RECEIVED'
+);
+	
+
+
+CREATE TABLE warehouse (
+	branch_id INT NOT NULL,
+	product_id INT NOT NULL,
+	product_stock INT NOT NULL
+);
+
+
+
+CREATE TABLE showroom (
+	branch_id INT NOT NULL,
+	product_id INT NOT NULL,
+	product_stock INT NOT NULL,
+	manufacture_date DATE NOT NULL
+);
+
+
+
+CREATE TABLE dealer (
+	dealer_id INT PRIMARY KEY AUTO_INCREMENT,
+	dealer_name VARCHAR(20) NOT NULL,
+	contact_no VARCHAR(15) NOT NULL,
+	contact_mail VARCHAR(255) NOT NULL,
+	d_address varchar(40) NOT NULL,
+	d_city varchar(15) NOT NULL,
+	d_code varchar(11) NOT NULL,
+	d_state varchar(20) NOT NULL,
+	d_country varchar(15) NOT NULL
+);	
+
+
+
+CREATE TABLE warehouse_transports (
+	warehouse_transport_id INT PRIMARY KEY AUTO_INCREMENT,
+	product_id INT NOT NULL,
+	manufacture_date DATE NOT NULL,
+	source_branch_id INT NOT NULL,
+	destination_branch_id INT,
+	destination_dealer_id INT,
+	destination_type VARCHAR(8) NOT NULL,
+	quantity INT NOT NULL,
+	send_date DATE NOT NULL,
+	receive_date DATE,
+	status VARCHAR(12) NOT NULL DEFAULT 'NOT RECEIVED'
+);
+
+
+
+CREATE TABLE dealer_product_branch (
+	dealer_id INT NOT NULL,
+	product_id INT NOT NULL,
+	branch_id INT NOT NULL,
+	quantity INT NOT NULL
+);
+
+
+
+CREATE TABLE bill (
+	bill_id INT PRIMARY KEY AUTO_INCREMENT,
+	customer_id VARCHAR(15) NOT NULL,
+	employee_id INT NOT NULL,
+	branch_id INT NOT NULL,
+	date_issued DATE NOT NULL
+);
+
+CREATE TABLE bill_product (
+	bill_id INT NOT NULL,
+	product_id INT NOT NULL,
+	quantity INT NOT NULL,
+	manufacture_date DATE NOT NULL,
+	status VARCHAR(6) NOT NULL DEFAULT 'UNPAID'
+);
+
+CREATE TABLE transaction (
+	transaction_id INT PRIMARY KEY AUTO_INCREMENT,
+	bill_id INT NOT NULL,
+	transaction_date DATE,
+	total_amount INT,
+	payment_method VARCHAR(30) NOT NULL,
+	status VARCHAR(14) NOT NULL DEFAULT 'NOT SUCCESSFUL'
+);
+
+CREATE TABLE services (
+	service_id INT PRIMARY KEY AUTO_INCREMENT,
+	product_id INT NOT NULL,
+	customer_id INT NOT NULL,
+	employee_id VARCHAR(8) NOT NULL,
+	problem_description VARCHAR(255) NOT NULL,
+	branch_id INT NOT NULL,
+	start_date DATE NOT NULL,
+	deadline DATE NOT NULL,
+	end_date DATE,
+	status VARCHAR(10) NOT NULL 'INCOMPLETE'
+);

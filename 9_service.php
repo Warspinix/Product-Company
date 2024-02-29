@@ -20,25 +20,21 @@
                 $name = $row1["b_name"];
                 $country = $row1["b_country"];
                 echo "<div class='container'>
-                        <div class='left'><br><br>
-                            $name, $country";
+                        <div class='left'>
+                            <span style='font-size:15px; margin-top: 13px;'>$name, $country</span>";
                             if ($_SESSION["position"]=="Regular") {
                                 echo "<ul>
-                                        <li><a href=''></a></li>
-                                        <li><a href=''></a></li>
-                                        <li><a href=''></a></li>
+                                        <li><a href='9a_service.php'>Service</a></li>                                        
                                     </ul>";
                             } else if ($_SESSION["position"]=="Manager") {
                                 echo "<ul>
-                                        <li><a href=''></a></li>
-                                        <li><a href=''></a></li>
-                                        <li><a href=''></a></li>
+                                        <li><a href='9a_service.php'>Service</a></li>
+                                        <li><a href='9b_employees.php'>Employees</a></li>                                        
                                     </ul>";
                             } else {
                                 echo "<ul>
-                                        <li><a href=''></a></li>
-                                        <li><a href=''></a></li>
-                                        <li><a href=''></a></li>
+                                        <li><a href='9a_service.php'>Service</a></li>
+                                        <li><a href='9b_employees.php'>Employees</a></li>                                        
                                     </ul>";
                             }
                             echo "
@@ -51,20 +47,9 @@
                                     <a href='0_logout.php'><button class='logout'>Logout</button></a><br>
                             </div>
                         </div>
-                        <div class='main'>";
-                            $q2 = "SELECT * FROM service_centre";
-                            if ($res2=mysqli_query($link, $q2)) {
-                                if (mysqli_num_rows($res2) > 0) {
-                                    while ($row2=mysqli_fetch_array($res2)) {
-
-                                    }
-                                } else {
-                                    echo "<br><h1>No</h1>";
-                                }
-                            } else {
-                                die("<br><br>Error: ".mysqli_error($link));
-                            }           
-                        echo "</div>
+                        <div class='main'>   
+                        <br><h1>Welcome, $_SESSION[fname] $_SESSION[lname]!</h1><br>           
+                        </div>
                     </div>
                 ";
             } else {

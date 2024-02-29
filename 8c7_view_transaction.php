@@ -97,7 +97,7 @@
                                 <select name="status" required>
                                     <option value="" disable select>Successful or Not?</option>
                                     <option value="SUCCESSFUL">Successful</option>
-                                    <option value="UNSUCCESSFUL">Unsuccessful</option>
+                                    <option value="NOT SUCCESSFUL">Unsuccessful</option>
                                 </select>
                             </div>
                             <div class="field">
@@ -147,7 +147,7 @@
                                     $q3="SELECT transaction_id, t.bill_id as bill_id, 
                                         transaction_date, total_amount, 
                                         payment_method, t.status as status,
-                                        c.fname as cfname, c.lname as flname,
+                                        c.fname as cfname, c.lname as clname,
                                         e.employee_id as employee_id, 
                                         e.fname as efname, e.lname as elname
                                         FROM transaction t
@@ -188,8 +188,10 @@
                                                     <td>$row3[employee_id]</td>
                                                     <td>$row3[efname] $row3[elname]</td>
                                                 </tr>
-                                            </table>"; 
-                                            }                                          
+                                            "; 
+                                            }    
+                                            echo "
+                                            </table>";
                                         } else {
                                             echo "No transactions found.";
                                         }

@@ -15,14 +15,14 @@ html, body{
 
 .wrapper{
     width: 100%;
-    height: 80%;
+    height: 100%;
     background: #ffffff;
     
 }
 
 .wrapper .title {
     display: grid;
-    height: 30%;
+    height: 40%;
     width: 100%;
     font-weight: 600;
     font-size: 100px;
@@ -33,7 +33,7 @@ html, body{
 }
 
 .wrapper .field{
-    height: 70%;
+    height: 50%;
     width: 100%;
     margin-top: 20px;
 }

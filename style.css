@@ -126,7 +126,7 @@ li a:hover {
     color: #B22222; 
 }
 
-.field{
+.field {
     height: 10%;
     width: 20%;
     margin-left: auto;
@@ -134,13 +134,25 @@ li a:hover {
     position: relative;
   }
 
-.field input{
+.field input {
     font-family: 'Poppins', sans-serif;
     height: 70%;
     width: 100%;
     padding: 7%;
     outline: none;
-    font-size: 16px;
+    font-size: 15px;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    cursor: text;
+}
+
+.field textarea {
+    font-family: 'Poppins', sans-serif;
+    height: 200%;
+    width: 100%;
+    padding: 7%;
+    outline: none;
+    font-size: 15px;
     border: 1px solid lightgrey;
     border-radius: 10px;
     cursor: text;
@@ -151,7 +163,7 @@ li a:hover {
     height: 70%;
     width: 100%;
     outline: none;
-    font-size: 16px;
+    font-size: 15px;
     text-align: center;
     border: 1px solid lightgrey;
     border-radius: 10px;
@@ -164,7 +176,7 @@ li a:hover {
     left: 7%;
     color: #999999;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 15px;
     pointer-events: none;
     transform: translateY(-50%);
     transition: all 0.3s ease;
@@ -172,7 +184,9 @@ li a:hover {
 
 form .field input:focus ~ label,
 form .field input:required:valid ~ label,
-form .field input:not(:required):not(:empty) { 
+form .field input[type="date"]:required ~label,
+form .field textarea:focus ~ label,
+form .field textarea:required:valid ~ label { 
   top: 0%;
   font-size: 16px;
   color: #4158d0;
@@ -201,20 +215,28 @@ form .field input:not(:required):not(:empty) {
     background: linear-gradient(45deg,#cfc8c8, #f0eaea);
 }
 
-table, th, td {
-    border: 2px solid black;
-    border-collapse: collapse;
-    table-layout: fixed;
-    font-size: 16px;	
+table {
+    border-spacing: 0;
+    margin: 20px auto;
+}
+
+th, td {
+    border: 2px solid #ffffff;
+    word-wrap: break-word;
+    max-width: 500px;
+    padding: 15px;
     text-align: left;
 }
-table {
-    border-spacing: 30px;
-    margin-left: auto;
-    margin-right: auto;
+
+table, th, td {   
+    table-layout: fixed;
+    font-size: 16px;
 }
-th, td {
-    word-wrap: break-word;
-    max-width: 500px; 
-    padding: 15px;
-} 
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}

@@ -82,6 +82,7 @@
                         <?php
                             if (isset($_POST["wt_id"])) {
                                 $warehouse_transport_id=$_POST["wt_id"];
+                                $date=date("Y-m-d");
                                 $q2="SELECT destination_branch_id 
                                     FROM warehouse_transports
                                     WHERE warehouse_transport_id=$warehouse_transport_id";
@@ -89,34 +90,35 @@
                                     if (mysqli_num_rows($res2)==1) {
                                         $row2=mysqli_fetch_array($res2);
                                         $destination_branch_id=$row2["destination_branch_id"];
-                                        $q4="SELECT pr.product_id, product_name, wt.quantity, manufacture_date 
+                                        $q4="SELECT pr.product_id as product_id, product_name, 
+                                            wt.quantity as quantity, manufacture_date, 
                                             b_name, b_address, b_city, b_state
                                             FROM warehouse_transports wt
                                             INNER JOIN product pr
                                             ON wt.product_id=pr.product_id
                                             INNER JOIN company
                                             ON source_branch_id=branch_id
-                                            INNER JOIN manufactures m
-                                            ON wt.manufacture_id=m.manufacture_id
                                             WHERE warehouse_transport_id=$warehouse_transport_id
-                                            AND destination_branch_id=$_SESSION[branch_id]";
+                                            AND destination_branch_id=$_SESSION[branch_id]
+                                            AND status='NOT RECEIVED'";
                                         if ($res4=mysqli_query($link, $q4)) {
                                             if (mysqli_num_rows($res4)==1) {
                                                 $row4=mysqli_fetch_array($res4);
                                                 $branch_id=$_SESSION["branch_id"];
-                                                $product_id=$_SESSION["product_id"];
-                                                $quantity=$row3["quantity"];
-                                                $manufacture_date=$row3["manufacture_date"];
+                                                $product_id=$row4["product_id"];
+                                                $product_name=$row4["product_name"];
+                                                $quantity=$row4["quantity"];
+                                                $manufacture_date=$row4["manufacture_date"];
                                                 echo "
                                                 <table>
                                                     <tr>
                                                         <th>Product Name</th>
-                                                        <td>$row[product_name]</td>
+                                                        <td>$row4[product_name]</td>
                                                     </tr>
                                                     <tr>
                                                         <th>From</th>
-                                                        <td>$row3[b_name], $row3[b_address], $row3[b_city] - $row3[b_code], 
-                                                        $row3[b_state]</td>
+                                                        <td>$row4[b_name], $row4[b_address], $row4[b_city], 
+                                                        $row4[b_state]</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Quantity</th>
@@ -134,21 +136,25 @@
                                                     AND manufacture_date=$manufacture_date";
                                                 if ($res5=mysqli_query($link, $q5)) {
                                                     if (mysqli_num_rows($res5)==1) {
-                                                        $actual_quantity=$row["product_stock"];
+                                                        $row5=mysqli_fetch_array($res5);
+                                                        $actual_quantity=$row5["product_stock"];
                                                         $q6="UPDATE showroom
                                                             SET product_stock=$actual_quantity+$quantity
                                                             WHERE branch_id=$branch_id
                                                             AND product_id=$product_id
-                                                            AND manufacture_date=$manufacture_date";
+                                                            AND manufacture_date='$manufacture_date'";
                                                     } else {
                                                         $q6="INSERT INTO showroom values
-                                                            ($branch_id, $product_id, $quantity, $manufacture_date)";
+                                                            ($branch_id, $product_id, $quantity, '$manufacture_date')";
                                                     }
                                                     if (mysqli_query($link, $q6)) {
                                                         $q7="UPDATE warehouse_transports
-                                                            SET receive_date=$date,
+                                                            SET receive_date='$date',
                                                             status='RECEIVED'
-                                                            WHERE warehouse_transport_id=$wt_id";
+                                                            WHERE warehouse_transport_id=$warehouse_transport_id";
+                                                        if (mysqli_query($link, $q7)) {
+                                                            echo "<br>Product Received.";
+                                                        }
                                                     } else {
                                                         die("Error: ".mysqli_error($link));
                                                     }
