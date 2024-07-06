@@ -1,5 +1,5 @@
 # Product_Company
-All the HTML and PHP Webpages and MySQL Commands for the Product Company application.
+An end-to-end product lifecycle management system inspired by Apple Inc., and developed as a full-stack web application.
 
 A Product Company is defined and categorised as any company operating on a worldwide basis and developing their own products.
 In such a company, there are many divisions, and in each division, many different processes take place.
